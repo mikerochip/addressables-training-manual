@@ -153,7 +153,7 @@ Things to remember:
 * An **addressables_content_state.bin** is a requirement for making content update builds. They’re produced by content builds. This file is not intended to be deployed to users.
 * **addressables_content_state.bin** is placed in Assets/AddressableAssetsData/<PlatformName>/
 * In order for content to be able to be updated, you need to flag an AssetGroup as Can Change Post Release.
-* When you make a content update build, you’ll want to check the box that says Build Remote Catalog
+* **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings ScriptableObject.
 
 There are 2 ways to make a content update build:
 
@@ -184,9 +184,9 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Build Script**: This is confusing because as a first time user you don’t necessarily care about build scripting. This isn’t custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
 
-**Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity’s Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called “Simulate Groups” which makes things really confusing!
+**Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity’s Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called “Simulate Groups” which makes things really confusing! I'm not sure what that particular BuildScript does.
 
-**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a clever syntax that you can look up in the official docs ([https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html)).
+**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a clever syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
 
 Profiles define a set of variables, and these variables are directly referenced by AssetGroups. **These 2 concepts together are how you specify whether an AssetGroup gets built into Local or Remote artifacts!** If a group’s LoadPath is a RemoteLoadPath, it’s a Remote bundle. Here’s a simplified sequence of how the build system uses these:
 
@@ -203,7 +203,7 @@ There are A LOT of settings in Addressables, so I’m going to call out the ones
 
 ## AddressableAssetSettings
 
-This is a ScriptableObject that contains settings, SOME of which are version controlled. It’s quite confusing and there is A LOT of stuff in here. What you’ll generally care about are:
+This is a ScriptableObject that contains settings, *some* of which are version controlled. It’s quite confusing that there's no real way to tell which settings are version controlled and which are not.
 
 * **Profile in Use**: this is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Group UI
 * **Build Remote Catalog**: you need to check this to make content update builds
