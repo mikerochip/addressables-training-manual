@@ -245,7 +245,7 @@ A: As far as Addressables is concerned, they’re almost synonyms. Usually the w
 
 A: An asset bundle is an asset file that the Unity runtime can load dynamically from disk so that you can use the asset in your game without building it in as part of your player build. Unlike assets in your Resources folder, asset bundles are more flexible because they can be moved, copied, downloaded, etc independent from a player build.
 
-So why do you care to learn what these are? Because the downside of Addressables is that you have to do the moving, copying, downloading, etc of asset bundles yourself. Addressables solves the problem of building and managing asset bundles as part of its build system. It even solves downloading them at runtime from a server. But, it **doesn’t** solve the problem of uploading bundles to a server.
+So why do you care to learn what these are? Because the downside of Addressables is that you have to do the moving, copying, downloading, etc of asset bundles yourself for Remote bundles. Addressables solves the problem of building and managing asset bundles as part of its build system. It even solves downloading them at runtime from a server. But, it **doesn’t** solve the problem of deploying bundles to a server.
 
 ### **Q: Why does Addressables create/use the StreamingAssets folder?**
 
@@ -310,7 +310,9 @@ A: This involves setting up Profiles. You have a few options:
 
 ### **Q: How do you specify which profile to use when you build?**
 
-A: UCB has a field for it, or you can set a default in the AddressableAssetSettings Profile In Use field. Pro tip: spend some time making the "Default" profile just work. If you’re responsible for setting up this system, and you don’t do that, your team will let you know about it. If you set it up well, you probably won’t hear anything. Build engineering is a thankless job.
+A: You can set a default in the AddressableAssetSettings Profile In Use field. If you use Unity Cloud Build, there is a specific setting for it when you're editing a UCB config.
+
+Pro tip: spend some time making the "Default" profile just work. If you’re responsible for setting up this system, and you don’t do that, your team will let you know about it. If you set it up well, you probably won’t hear anything. Build engineering is a thankless job.
 
 ### **Q: How do you specify which groups should be local vs remote? Why should a group be local vs remote?**
 
@@ -320,7 +322,7 @@ A: This is basically a call you have to make on what content you want to ship as
 
 A: This is a massive topic. This is basically "how do I put files on a server so that my game can download them."
 
-The best advice I can give is to sign up for and use Unity’s Cloud Content Delivery (CCD) service. It has nice integrations with Unity Cloud Build so you can really save yourself effort.
+The best advice I can give is to sign up for and use Unity’s Cloud Content Delivery (CCD) service. It has nice integrations with Unity Cloud Build so you can really save yourself and your team from some undifferentiated heavy lifting.
 
 If you don’t use that, then the next best advice is "use a major cloud provider." Each cloud provider has file storage services that make this easier than running your own web server and enabling file downloads.
 
@@ -328,7 +330,7 @@ If you don’t use that, then the next best advice is "use a major cloud provide
 * Azure: Blob storage
 * GCP: Cloud Storage
 
-Each cloud provider also has CDN services that you probably want to put in front of the file storage services, for better performance.
+Cloud providers also have CDN services that you probably want to put in front of their file storage services, for better performance.
 
 If you’re feeling very DIY and want to run a local web server but use a public-facing URL to do it, you can use ngrok.
 
