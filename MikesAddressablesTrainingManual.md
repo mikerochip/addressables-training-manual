@@ -43,7 +43,9 @@ First, a note about the term "artifact." This is a build engineering term, which
 
 ## What is a content build?
 
-When testing in the editor, you don’t need to care. Addressables defaults to loading assets from your project directly, just like other types of Unity assets.
+A content build is the collection of artifacts that let the Addressables runtime load your Addressable assets. A content build is platform specific since the underlying storage system for Addressables is platform specific (asset bundles).
+
+When testing in the editor, you don’t actually need to care about what a content build is. Addressables defaults to loading assets from your project directly, just like other types of Unity assets.
 
 When testing player builds, you need to care because your player will throw exceptions when loading Addressable assets if you don’t make a content build first.
 
