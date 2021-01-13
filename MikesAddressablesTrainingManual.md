@@ -15,11 +15,11 @@ The goal of this manual is to get you up to speed more quickly than you could wi
 
 My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system. I found myself frustrated enough from learning it that I thought about giving up and writing my own solution, but I know from experience that Addressables has tons of value out of the box - I wrote a primitive version of this system for Hearthstone, and I’d like to avoid doing that again if I can help it. I’d like to help others avoid doing that as well.
 
-This doc was inspired by[ https://expeditedsecurity.com/aws-in-plain-english/](https://expeditedsecurity.com/aws-in-plain-english/)
+This doc was inspired by [Amazon Web Services In Plain English](https://expeditedsecurity.com/aws-in-plain-english/)
 
 # Use Cases
 
-The official docs have a page about this[ https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets) but this only explains the value of the system from the standpoint of optimizing asset load times.
+The official docs [have a page about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets) but this only explains the value of the system from the standpoint of optimizing asset load times.
 
 I’ll explain the value of this system from the standpoint of value to your project as a whole.
 
