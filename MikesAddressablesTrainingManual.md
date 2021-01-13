@@ -102,8 +102,8 @@ This artifact type doesn’t fit neatly into the chart above. It’s a special c
 **Local artifacts**
 
 * Library/com.unity.addressables/aa
-* Assets/StreamingAssets(!)
-  * Files get copied from Library/com.unity.addressables/aa only when you make a player build AND you’ve already made a content build. See Questions section for more on that.
+* [If you make a player build] Assets/StreamingAssets
+  * Note that files get copied here only when you make a player build AND there are already files in Library/com.unity.addressables/aa from a prior content build. See Questions section for more on that.
 
 **Remote artifacts**
 
@@ -155,19 +155,19 @@ There are 2 ways to make a content update build:
   * Build > Update a Previous Build
   * Pick the appropriate addressables_content_state.bin
 * From an editor script
-    * If you want to show a file picker for addressables_content_state.bin, first call: ContentUpdateScript.GetContentStateDataPath(true)
-    * **Note**: If you don’t want to show a file picker (e.g. a build server), then **don’t** call this. You’ll need to hard code or pass in a path to addressables_content_state.bin
-    * Next, call: ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)
+  * If you want to show a file picker for addressables_content_state.bin, first call: ContentUpdateScript.GetContentStateDataPath(true)
+  * **Note**: If you don’t want to show a file picker (e.g. a build server), then **don’t** call this. You’ll need to hard code or pass in a path to addressables_content_state.bin
+  * Next, call: ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)
 
 The output is basically the Remote Deploy Locations in the artifact table above.
 
 You’ll want to look at the official docs for the full picture on this topic. This section is more here for summarizing and clarifying the official docs since they have some errors (e.g. referring to steps 4-6 that don’t exist) and can be difficult to understand. 
 
-Official docs: [https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/ContentUpdateWorkflow.html#how-it-works](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/ContentUpdateWorkflow.html#how-it-works)
+Official docs: https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/ContentUpdateWorkflow.html#how-it-works
 
 # Confusing Terminology
 
-Naming is hard. It’s one of the 2 hardest problems in computer science:[ https://skeptics.stackexchange.com/questions/19836/has-phil-karlton-ever-said-there-are-only-two-hard-things-in-computer-science](https://skeptics.stackexchange.com/questions/19836/has-phil-karlton-ever-said-there-are-only-two-hard-things-in-computer-science)
+[Naming is one of the 2 hardest problems in computer science.](https://skeptics.stackexchange.com/questions/19836/has-phil-karlton-ever-said-there-are-only-two-hard-things-in-computer-science)
 
 Here are some terms that caused me a lot of confusion and what they mean.
 
@@ -186,11 +186,8 @@ Profiles define a set of variables, and these variables are directly referenced 
 *For each AssetGroup Foo:*
 
 1. BundlePath = Foo.LoadPath (**this references a Profile var**) + Foo.Name + a hash value
-
 2. Convert the AssetGroup into a bundle or bundles(!) depending on the Bundle Mode
-
 3. Write the bundles to disk using BundlePath
-
 4. Write the BundlePath into the content catalog
 
 # Settings Files
@@ -218,7 +215,7 @@ I’m not sure why this is super hidden or wasn’t placed directly into Address
 Every AssetGroup has settings on itself. These affect how the group is converted into asset bundles by the build system.
 
 * **Build and Load Paths section**: This is what determines whether your bundle will be local or remote
-* **Advanced Options > Compression**: See the guidance at[ https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms)
+* **Advanced Options > Compression**: See the guidance at https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms
 * **Bundle Mode**: This is where you’d start to get into download optimization. This basically determines whether your group gets converted into multiple asset bundles or a single asset bundle. This is effectively your toggle for controlling size vs number of downloaded files.
 * **Bundle Naming**: Addressables generates REALLY LONG file paths in its artifacts, so you might have to mess with this if the runtime starts failing to load files. Or you can shorten your file paths in your project. This is a pretty well known sharp edge of the system.
 * **Content Update Restriction**: This determines whether the group gets written into your addressables_content_state.bin as content that can be updated after you’ve already shipped your player builds.
@@ -302,7 +299,7 @@ A: This involves setting up Profiles. You have a few options:
 
 1. Just use a single Profile that works all the time. Thankfully the Default profile uses some clever syntax to target the current user-selected platform, so this should mostly work out of the box. You’d want to change your RemoteLoadPath to wherever your remote bundles are deployed.
 
-2. Create a set of profiles per-platform (iOS, Mac, Windows, etc) using the values of the UnityEditor.BuildTarget enum, e.g. you could have a Profile named iOS with RemoteLoadPath: [https://myurl.com/mygame/environment/iOS](https://myurl.com/mygame/environment/iOS)
+2. Create a set of profiles per-platform (iOS, Mac, Windows, etc) using the values of the UnityEditor.BuildTarget enum, e.g. you could have a Profile named iOS with RemoteLoadPath: https://myurl.com/mygame/environment/iOS
 
 ### **Q: How do you specify which profile to use when you build?**
 
@@ -332,9 +329,9 @@ If you’re feeling very DIY and want to run a local web server but use a public
 
 A: Handled automagically if you use the CCD integration in UCB.
 
-If you use the CCD CLI, then any files that are in the Remote Build Path for your current profile. Files that end up in the Remote Build path are the remote content catalog (which is actually 2 files: a .hash and a .json file) if you have that enabled and any remote asset bundles. See this[ https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesCCD.html](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesCCD.html)
+If you use the CCD CLI, then any files that are in the Remote Build Path for your current profile. Files that end up in the Remote Build path are the remote content catalog (which is actually 2 files: a .hash and a .json file) if you have that enabled and any remote asset bundles. See this https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressablesCCD.html
 
 ### **Q: When/how should we upload Addressables artifacts to CCD from a UCB build?**
 
-A: See the Enable Cloud Content Delivery service header in[ https://docs.unity3d.com/Manual/UnityCloudBuildAddressables.html](https://docs.unity3d.com/Manual/UnityCloudBuildAddressables.html)
+A: See the Enable Cloud Content Delivery service header in https://docs.unity3d.com/Manual/UnityCloudBuildAddressables.html
 
