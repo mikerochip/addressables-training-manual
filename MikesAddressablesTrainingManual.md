@@ -123,8 +123,6 @@ Your selected profile’s Remote Build Path, defaults to ServerData/
 * Assets/AddressableAssetsData/<PlatformName>
 * Also Library/com.unity.addressables/<PlatformName> but it’s not clear why. The documentation only mentions the Assets/ location.
 
-**Note:** 
-
 ## Which artifacts do I need to care about?
 
 **In a nutshell, anything in the Remote section, because you are responsible for deploying them after your content is built.**
@@ -133,7 +131,7 @@ Here’s the more detailed breakdown:
 
 **Local** artifacts I refer to as prepackaged since they are similar to assets in Resources folders. They don’t need any special deployment steps after your player build is done.
 
-**Remote** artifacts, counterintuitively, are not usable after an Addressables content build. **These just get copied to the Remote Build Path, which is just a path on your hard drive. You are responsible for deploying the files in that path to the Remote Load Path after your build is complete.**
+**Remote** artifacts are not immediately usable after an Addressables content build. **These just get copied to the Remote Build Path, which is just a path on your hard drive. You are responsible for deploying the files in that path to the Remote Load Path after your build is complete.**
 
 **Local System Files**: These are basically scaffolding that Addressables needs for startup and configuration. Addressables wouldn’t know how to load any asset bundles without these.
 
