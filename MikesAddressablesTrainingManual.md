@@ -82,9 +82,12 @@ Here’s a table. Note that "System Files" is a term I made up, not an official 
      <li>settings.json (profile variables, etc)</li>
      <li>link.xml (preserves assembly contents for scripts attached to bundles)</li>
     </td>
-    <td>catalog_<timestamp>.json (content catalog)
-catalog_<timestamp>.hash (CRC for the content catalog)
-Note: these files are only used for content update builds</td>
+    <td>
+     <li>catalog_<timestamp>.json (content catalog)</li>
+     <li>catalog_<timestamp>.hash (CRC for the content catalog)</li>
+     <br>
+     Note: these files are only used for content update builds
+    </td>
   </tr>
   <tr>
     <td>Asset Bundles</td>
