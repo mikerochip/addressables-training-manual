@@ -102,9 +102,8 @@ This artifact type doesn’t fit neatly into the chart above. It’s a special c
 **Local artifacts**
 
 * Library/com.unity.addressables/aa
-* Assets/StreamingAssets *
-
-* Files get copied from Library/com.unity.addressables/aa only when you make a player build AND you’ve already made a content build. See Questions section for more on that.
+* Assets/StreamingAssets(!)
+  * Files get copied from Library/com.unity.addressables/aa only when you make a player build AND you’ve already made a content build. See Questions section for more on that.
 
 **Remote artifacts**
 
