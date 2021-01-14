@@ -181,7 +181,7 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you’re reasoning about all of the configuration, just replace the word “Local” with “files that are prepackaged with your player” and you’ll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don’t get stuck thinking that you’re making a “Local only” or “Remote only” build. The one exception to this is making “content update” builds, where every file is intended to be deployed Remotely.
 
-**Build Cache: **This is basically your Library/com.unity.addressables/aa folder. For some reason this **does not include the addressables_content_state.bin**.
+**Build Cache**: This is basically your Library/com.unity.addressables/aa folder. For some reason this **does not include the addressables_content_state.bin**.
 
 **Build Script**: This is confusing because as a first time user you don’t necessarily care about build scripting. This isn’t custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
 
