@@ -5,6 +5,11 @@
 
 This doc was originally written against Addressables 1.16.15
 
+# Table of Contents
+
+* [Welcome](#Welcome)
+* [Use Cases](#Use Cases)
+
 # Welcome
 
 So! You start looking into Addressables, and...aren’t sure what to do next. Maybe you installed the package and thought...what now? Maybe you tried to read the official docs and became confused. Maybe you started asking yourself whether it’s you or the system. This happened to me, and I made this manual to help people understand the system and encourage them to adopt it instead of giving up on it.
