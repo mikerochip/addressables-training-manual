@@ -103,7 +103,6 @@ Here’s a table. Note that "System Files" is a term I made up, not an official 
   </tr>
 </table>
 
-
 ### Special case: addressables_content_state.bin
 
 This artifact type doesn’t fit neatly into the chart above. It’s a special case that is used as the basis for content updates. This is covered more in the Content Update Builds section.
@@ -122,8 +121,8 @@ Your selected profile’s Remote Build Path, defaults to ServerData/
 
 **addressables_content_state.bin**
 
-* Assets/AddressableAssetsData/<PlatformName>
-* Also Library/com.unity.addressables/<PlatformName> but it’s not clear why. The documentation only mentions the Assets/ location.
+* Assets/AddressableAssetsData/\<PlatformName\>
+* Also Library/com.unity.addressables/\<PlatformName\> but it’s not clear why. The documentation only mentions the Assets/ location.
 
 ## Which artifacts do I need to care about?
 
@@ -153,7 +152,7 @@ Things to remember:
 Things to remember:
 
 * An **addressables_content_state.bin** is a requirement for making content update builds. They’re produced by content builds. This file is not intended to be deployed to users.
-* **addressables_content_state.bin** is placed in Assets/AddressableAssetsData/<PlatformName>/
+* **addressables_content_state.bin** is placed in Assets/AddressableAssetsData/\<PlatformName\>/
 * In order for content to be able to be updated, you need to flag an AssetGroup as Can Change Post Release.
 * **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings ScriptableObject.
 
@@ -300,7 +299,6 @@ A: See this:
     <td>Simulates what a player build would do, except using the Library folder, which is where local artifacts end up </td>
   </tr>
 </table>
-
 
 ### **Q: How do I test different platforms in a built player?**
 
