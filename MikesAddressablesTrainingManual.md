@@ -57,7 +57,7 @@ When testing player builds, you need to care because your player will throw exce
   * Open the Addressables Groups window
   * Build > New Build > Default Build Script
 * From an editor script
-  * Call Addressables.BuildPlayerContent()
+  * Call `Addressables.BuildPlayerContent()`
 
 ## Making Addressables work in a player build
 
@@ -111,9 +111,9 @@ This artifact type doesn’t fit neatly into the chart above. It’s a special c
 
 **Local artifacts**
 
-* Library/com.unity.addressables/aa
-* [If you make a player build] Assets/StreamingAssets
-  * Note that files get copied here only when you make a player build AND there are already files in Library/com.unity.addressables/aa from a prior content build. See Questions section for more on that.
+* `Library/com.unity.addressables/aa`
+* [If you make a player build] `Assets/StreamingAssets`
+  * Note that files get copied here only when you make a player build AND there are already files in `Library/com.unity.addressables/aa` from a prior content build. See Questions section for more on that.
 
 **Remote artifacts**
 
@@ -121,8 +121,8 @@ Your selected profile’s Remote Build Path, defaults to ServerData/
 
 **addressables_content_state.bin**
 
-* Assets/AddressableAssetsData/\<PlatformName\>
-* Also Library/com.unity.addressables/\<PlatformName\> but it’s not clear why. The documentation only mentions the Assets/ location.
+* `Assets/AddressableAssetsData/<PlatformName>`
+* Also `Library/com.unity.addressables/<PlatformName>` but it’s not clear why. The documentation only mentions the `Assets/` location.
 
 ## Which artifacts do I need to care about?
 
@@ -136,7 +136,7 @@ Here’s the more detailed breakdown:
 
 **Local System Files**: These are basically scaffolding that Addressables needs for startup and configuration. Addressables wouldn’t know how to load any asset bundles without these.
 
-**Remote System Files**: These are what enable the Addressables runtime to load OTA content updates i.e. remote asset bundles that are built as content update bundles. A so-called remote content catalog tells the Addressables runtime where the remote bundles are.
+**Remote System Files**: These are what enable the Addressables runtime to load OTA content updates i.e. remote asset bundles that are built as content update bundles. A so-called remote content catalog tells the Addressables runtime where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
 
 **Asset Bundles**: For the most part, Unity can only load assets at arbitrary paths if they are packaged into Asset Bundles. That’s why Addressables outputs these.
 
@@ -152,7 +152,7 @@ Things to remember:
 Things to remember:
 
 * An **addressables_content_state.bin** is a requirement for making content update builds. They’re produced by content builds. This file is not intended to be deployed to users.
-* **addressables_content_state.bin** is placed in Assets/AddressableAssetsData/\<PlatformName\>/
+* **addressables_content_state.bin** is placed in `Assets/AddressableAssetsData/<PlatformName>/`
 * In order for content to be able to be updated, you need to flag an AssetGroup as Can Change Post Release.
 * **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings ScriptableObject.
 
@@ -163,9 +163,9 @@ There are 2 ways to make a content update build:
   * Build > Update a Previous Build
   * Pick the appropriate addressables_content_state.bin
 * From an editor script
-  * If you want to show a file picker for addressables_content_state.bin, first call: ContentUpdateScript.GetContentStateDataPath(true)
+  * If you want to show a file picker for addressables_content_state.bin, first call: `ContentUpdateScript.GetContentStateDataPath(true)`
   * **Note**: If you don’t want to show a file picker (e.g. a build server), then **don’t** call this. You’ll need to hard code or pass in a path to addressables_content_state.bin
-  * Next, call: ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)
+  * Next, call: `ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)`
 
 The output is basically the Remote Deploy Locations in the artifact table above.
 
@@ -181,7 +181,7 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you’re reasoning about all of the configuration, just replace the word “Local” with “files that are prepackaged with your player” and you’ll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don’t get stuck thinking that you’re making a “Local only” or “Remote only” build. The one exception to this is making “content update” builds, where every file is intended to be deployed Remotely.
 
-**Build Cache**: This is basically your Library/com.unity.addressables/aa folder. For some reason this **does not include the addressables_content_state.bin**.
+**Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the addressables_content_state.bin** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted.
 
 **Build Script**: This is confusing because as a first time user you don’t necessarily care about build scripting. This isn’t custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
 
@@ -194,9 +194,9 @@ Profiles define a set of variables, and these variables are directly referenced 
 *For each AssetGroup Foo:*
 
 1. BundlePath = Foo.LoadPath (**this references a Profile var**) + Foo.Name + a hash value
-2. Convert the AssetGroup into a bundle or bundles(!) depending on the Bundle Mode
-3. Write the bundles to disk using BundlePath
-4. Write the BundlePath into the content catalog
+1. Convert the AssetGroup into a bundle or bundles(!) depending on the Bundle Mode
+1. Write the bundles to disk using BundlePath
+1. Write the BundlePath into the content catalog
 
 # Settings Files
 
@@ -206,9 +206,9 @@ There are A LOT of settings in Addressables, so I’m going to call out the ones
 
 This is a ScriptableObject that contains settings, *some* of which are version controlled. It’s quite confusing that there's no real way to tell which settings are version controlled and which are not.
 
-* **Profile in Use**: this is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Group UI
-* **Build Remote Catalog**: you need to check this to make content update builds
-* **Send Profiler Events**: this enables you to profile the system from the Addressables Event Viewer and checking this does not change the AddressableAssetSettings file itself, so it’s basically a user-specific setting
+* **Profile in Use**: Changes AddressableAssetSettings. This is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Groups window.
+* **Build Remote Catalog**: Changes AddressableAssetSettings. You need to check this before you make a content update build.
+* **Send Profiler Events**: Does not change AddressableAssetSettings. This enables you to profile the system from the Addressables Event Viewer. This actually changes a file in your `Library/com.unity.addressables` folder, it turns out, effectively making this a user-specific setting.
 
 ## CacheInitializationSettings
 
@@ -220,7 +220,7 @@ I’m not sure why this is super hidden or wasn’t placed directly into Address
 
 ## AssetGroups
 
-Every AssetGroup has settings on itself. These affect how the group is converted into asset bundles by the build system.
+Every AssetGroup ScriptableObjects has settings. These affect how the group is converted into asset bundles by the build system.
 
 * **Build and Load Paths section**: This is what determines whether your bundle will be local or remote
 * **Advanced Options > Compression**: See the guidance at https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms
@@ -232,7 +232,7 @@ Every AssetGroup has settings on itself. These affect how the group is converted
 
 For the most part, you can ignore everything else.
 
-I’m not sure what AssetGroupTemplates are. DefaultObject seems to be some kind of hack that exists for some of the built-in Addressables ScriptableObjects to link back to the AddressableAssetSettings. There might be more I’m forgetting or not aware of…
+I’m not sure what AssetGroupTemplates are. DefaultObject seems to be some kind of hack that exists for some of the built-in Addressables ScriptableObjects to link back to the AddressableAssetSettings. There might be more I’m forgetting or not aware of...
 
 # Questions
 
@@ -260,16 +260,16 @@ That’s it! That’s the only reason Addressables uses this folder! It’s kind
 
 A: Here’s a Git example, but you should be able to adapt this to any VCS:
 
-* /Assets/StreamingAssets/aa/
-* /Assets/StreamingAssets/aa.meta
-* /Assets/AddressableAssetsData/**/addressables_content_state.bin*
-* /ServerData
+* `/Assets/StreamingAssets/aa/`
+* `/Assets/StreamingAssets/aa.meta`
+* `/Assets/AddressableAssetsData/**/addressables_content_state.bin*`
+* `/ServerData`
 
-I highly recommend putting placeholder files in StreamingAssets and in each platform subfolder of AddressableAssetsData (e.g. AddressableAssetsData/OSX, AddressableAssetsData/iOS, etc) otherwise your teammates will get complaints about meta files for empty folders when they startup your Unity project.
+I highly recommend putting placeholder files in StreamingAssets and in each platform subfolder of AddressableAssetsData (e.g. `AddressableAssetsData/OSX`, `AddressableAssetsData/iOS`, etc) otherwise your teammates will get complaints about meta files for empty folders when they startup your Unity project.
 
 ### **Q: How do I test in the editor?**
 
-A: This is affected by your Play Mode Script, which defaults to "Use Asset Database (fastest)" so everything is loaded as if AssetDatabase.LoadAsset() were being called.
+A: This is affected by your Play Mode Script, which defaults to "Use Asset Database (fastest)" so everything is loaded as if `AssetDatabase.LoadAsset()` were being called.
 
 If you want to test a content build in the editor, you’d first make a content build, then choose the Play Mode Script "Use Existing Build (requires built groups)" and remember this is platform specific, so you’d have to do this again if you switch platforms.
 
