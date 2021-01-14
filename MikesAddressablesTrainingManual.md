@@ -8,7 +8,7 @@ This doc was originally written against Addressables 1.16.15
 # Table of Contents
 
 * [Welcome](#Welcome)
-* [Use Cases](#Use Cases)
+* [Use Cases](#UseCases)
 
 # Welcome
 
