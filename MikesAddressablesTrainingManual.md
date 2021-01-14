@@ -10,6 +10,9 @@ This doc was originally written against Addressables 1.16.15
 * [Welcome](#welcome)
 * [Use Cases](#use-cases)
 * [Content Builds and Build Artifacts](#content-builds-and-build-artifacts)
+* [Content Update Builds](#content-update-builds)
+* [Settings](#settings)
+* [Questions and Answers](#questions-and-answers)
 
 # Welcome
 
@@ -204,7 +207,7 @@ Profiles define a set of variables, and these variables are directly referenced 
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
 
-# Settings Files
+# Settings
 
 There are A LOT of settings in Addressables, so I’m going to call out the ones you’ll really need to care about when getting started.
 
