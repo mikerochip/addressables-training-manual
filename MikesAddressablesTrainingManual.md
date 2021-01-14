@@ -234,7 +234,7 @@ For the most part, you can ignore everything else.
 
 I’m not sure what AssetGroupTemplates are. DefaultObject seems to be some kind of hack that exists for some of the built-in Addressables ScriptableObjects to link back to the AddressableAssetSettings. There might be more I’m forgetting or not aware of...
 
-# Questions
+# Questions and Answers
 
 These are just questions I posed to myself, role-playing as a person learning the system, so that I could force myself to come up with a satisfying answer.
 
@@ -250,9 +250,9 @@ So why do you care to learn what these are? Because the downside of Addressables
 
 ### **Q: Why does Addressables create/use the StreamingAssets folder?**
 
-A: This is a bit weird, and honestly a bit of a hack if you ask me. StreamingAssets itself is a confusing name, but it helps to know the etymology. The naming is a Unity thing, not an Addressables thing. This is a special folder that was created in the early days of Unity, originally intended for deploying movie files with Unity player builds. They chose the name "StreamingAssets" because the intention was for this to be the place where you put large media files that the Unity engine would have to stream into memory at runtime.
+A: This is a bit weird, and honestly a bit of a hack if you ask me. `StreamingAssets` itself is a confusing name, but it helps to know the etymology. The naming is a Unity thing, not an Addressables thing. This is a special folder that was created in the early days of Unity, originally intended for deploying movie files with Unity player builds. They chose the name "StreamingAssets" because the intention was for this to be the place where you put large media files that the Unity engine would have to stream into memory at runtime.
 
-Why is this relevant to Addressables? Because of a side effect. Unity copies any files in this folder **verbatim** into your built player. That means file paths are preserved. So, the Addressables runtime abuses this fact to make part of its job easier: loading Local files. The Addressables runtime can assume any Local files (either system files or asset bundles) are relative to Application.streamingAssetsPath. If you see {UnityEngine.AddressableAssets.Addressables.RuntimePath} in your LocalLoadPaths, that basically the StreamingAssets folder, which in UnityEngine’s runtime API is Application.streamingAssetsPath.
+Why is this relevant to Addressables? Because of a side effect. Unity copies any files in this folder **verbatim** into your built player. That means file paths are preserved. So, the Addressables runtime abuses this fact to make part of its job easier: loading Local files. The Addressables runtime can assume any Local files (either system files or asset bundles) are relative to `Application.streamingAssetsPath`. If you see `{UnityEngine.AddressableAssets.Addressables.RuntimePath}` in your LocalLoadPaths, that basically the `StreamingAssets` folder, which in UnityEngine’s runtime API is `Application.streamingAssetsPath`.
 
 That’s it! That’s the only reason Addressables uses this folder! It’s kind of annoying that the Addressables BuildScripts don’t delete this folder if they are the only thing using it, but oh well.
 
@@ -265,7 +265,7 @@ A: Here’s a Git example, but you should be able to adapt this to any VCS:
 * `/Assets/AddressableAssetsData/**/addressables_content_state.bin*`
 * `/ServerData`
 
-I highly recommend putting placeholder files in StreamingAssets and in each platform subfolder of AddressableAssetsData (e.g. `AddressableAssetsData/OSX`, `AddressableAssetsData/iOS`, etc) otherwise your teammates will get complaints about meta files for empty folders when they startup your Unity project.
+I highly recommend putting placeholder files in `Assets/StreamingAssets` and in each platform subfolder of `AddressableAssetsData` (e.g. `AddressableAssetsData/OSX`, `AddressableAssetsData/iOS`, etc) otherwise your teammates will get complaints about meta files for empty folders when they startup your Unity project.
 
 ### **Q: How do I test in the editor?**
 
