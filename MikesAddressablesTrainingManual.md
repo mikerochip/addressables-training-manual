@@ -9,7 +9,7 @@ This doc was originally written against Addressables 1.16.15
 
 * [Welcome](#welcome)
 * [Use Cases](#use-cases)
-# [Content Builds and Build Artifacts](#content-builds-and-build-artifacts)
+* [Content Builds and Build Artifacts](#content-builds-and-build-artifacts)
 
 # Welcome
 
