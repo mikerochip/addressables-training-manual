@@ -126,7 +126,7 @@ This artifact type doesn't fit neatly into the chart above. It's a special case 
 
 **Remote artifacts**
 
-Your selected profile's Remote Build Path, defaults to ServerData/
+Your selected profile's Remote Build Path, which defaults to <YourProjectPath>/ServerData/
 
 **addressables_content_state.bin**
 
@@ -162,15 +162,15 @@ Things to remember:
 
 * An **addressables_content_state.bin** is a requirement for making content update builds. They're produced by content builds. This file is not intended to be deployed to users.
 * **addressables_content_state.bin** is placed in `Assets/AddressableAssetsData/<PlatformName>/`
-* In order for content to be able to be updated, you need to flag an AssetGroup as Can Change Post Release.
-* **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings ScriptableObject.
+* In order for content to be able to be updated, you need to flag its AssetGroup as Can Change Post Release.
+* **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings inspector.
 
 There are 2 ways to make a content update build:
 
 * From the UI
   * Open the Addressables Groups window
   * Build > Update a Previous Build
-  * Pick the appropriate addressables_content_state.bin
+  * Pick the appropriate addressables_content_state.bin i.e. `Assets/AddressableAssetsData/<PlatformName>/addressables_content_state.bin`
 * From an editor script
   * If you want to show a file picker for addressables_content_state.bin, first call: `ContentUpdateScript.GetContentStateDataPath(true)`
   * **Note**: If you don't want to show a file picker (e.g. a build server), then **don't** call this. You'll need to hard code or pass in a path to addressables_content_state.bin
@@ -247,7 +247,7 @@ I'm not sure what AssetGroupTemplates are. DefaultObject seems to be some kind o
 
 These are just questions I posed to myself, role-playing as a person learning the system, so that I could force myself to come up with a satisfying answer.
 
-### **Q: What is the difference between the terms "content" and “assets”?**
+### **Q: What is the difference between the terms "content" and "assets"?**
 
 A: As far as Addressables is concerned, they're almost synonyms. Usually the word content is used as a direct synonym for asset bundles.
 
