@@ -1,9 +1,8 @@
 # Mike's Addressables Training Manual
 
-*Jan 13, 2020*\
 *Mike Schweitzer, Principal Engineer, Second Dinner*
 
-This doc was originally written against Addressables 1.16.15
+This doc was originally published Jan 13, 2020 against Addressables 1.16.15
 
 # Table of Contents
 
@@ -188,7 +187,7 @@ Official docs: https://docs.unity3d.com/Packages/com.unity.addressables@1.16/man
 
 Here are some terms that caused me a lot of confusion and what they mean.
 
-**Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you're reasoning about all of the configuration, just replace the word “Local” with “files that are prepackaged with your player” and you'll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don't get stuck thinking that you're making a “Local only” or “Remote only” build. The one exception to this is making “content update” builds, where every file is intended to be deployed Remotely.
+**Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you're reasoning about all of the configuration, just replace the word "Local" with "files that are prepackaged with your player" and you'll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don't get stuck thinking that you're making a "Local only" or "Remote only" build. The one exception to this is making "content update" builds, where every file is intended to be deployed Remotely.
 
 **Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the addressables_content_state.bin** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted.
 
