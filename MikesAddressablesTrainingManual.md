@@ -214,7 +214,7 @@ There are A LOT of settings in Addressables, so I'm going to call out the ones y
 
 ## AddressableAssetSettings
 
-This is a ScriptableObject that contains settings, *some* of which are version controlled. It's quite confusing that there's no real way to tell which settings are version controlled and which are not.
+This is a ScriptableObject that contains settings, *some* of which are version controlled. It's quite confusing that there's no clear way to tell which settings are version controlled and which are not.
 
 * **Profile in Use**: Changes AddressableAssetSettings. This is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Groups window.
 * **Build Remote Catalog**: Changes AddressableAssetSettings. You need to check this before you make a content update build.
