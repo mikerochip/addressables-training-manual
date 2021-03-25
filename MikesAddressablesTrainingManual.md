@@ -193,9 +193,9 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Build Script**: This is confusing because as a first time user you don't necessarily care about build scripting. This isn't custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
 
-**Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity's Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called “Simulate Groups” which makes things really confusing! I'm not sure what that particular BuildScript does.
+**Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity's Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called "Simulate Groups" which makes things really confusing! That one basically lets you simulate network delays as if you were in a deployed build even though you're still in the editor.
 
-**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a clever syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
+**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a custom syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
 
 Profiles define a set of variables, and these variables are directly referenced by AssetGroups. **These 2 concepts together are how you specify whether an AssetGroup gets built into Local or Remote artifacts!** If a group's LoadPath is a RemoteLoadPath, it's a Remote bundle. Here's a simplified sequence of how the build system uses these:
 
@@ -205,6 +205,8 @@ Profiles define a set of variables, and these variables are directly referenced 
 1. Convert the AssetGroup into a bundle or bundles(!) depending on the Bundle Mode
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
+
+Honestly, I simplified this a bit. It's a bit more complex because AssetGroups don't reference profile variables directly - they rely on a thing called AssetGroupSchemas. AssetGroupSchemas are attached to AssetGroups and are the thing that references profile variables directly.
 
 # Settings
 
