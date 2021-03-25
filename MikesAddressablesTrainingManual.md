@@ -125,7 +125,7 @@ This artifact type doesn't fit neatly into the chart above. It's a special case 
 
 **Remote artifacts**
 
-Your selected profile's Remote Build Path, which defaults to <YourProjectPath>/ServerData/
+Your selected profile's Remote Build Path, which defaults to `<YourProjectPath>/ServerData/`
 
 **addressables_content_state.bin**
 
