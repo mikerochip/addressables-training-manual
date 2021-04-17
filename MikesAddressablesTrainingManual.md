@@ -226,7 +226,11 @@ This is another ScriptableObject. It's hard to find.
 
 Assets > Create > Addressables > Initialization > Cache Initialization Settings
 
-I'm not sure why this is super hidden or wasn't placed directly into AddressableAssetSettings, but it lets you control some things about the caching behavior of the runtime. I wouldn't start messing with this until you find you have issues in production; I just wanted to call it out because finding this file is difficult.
+This gives you some control of asset bundle caching behavior when your app starts up. It doesn't actually do anything until you drag the file that was created into the ```InitializationObjects``` slot of your ```AddressableAssetSettings```.
+
+I wouldn't start messing with this until you find you have issues with asset bundle cache size in production. I wanted to call this out partially because finding this file is difficult and partially because it follows a very interesting, very extensible (and undocumented?) pattern which is the InitializationObjects.
+
+InitializationObjects allow you to run logic and save state at content build time which you can then consume at runtime initialization. Using this pattern, I implemented my own InitializationObject that allowed me to detect whether the selected profile used for a build had any remote urls and, if not, the runtime would clear the asset bundle cache on initialization.
 
 ## AssetGroups
 
