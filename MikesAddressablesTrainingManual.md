@@ -21,7 +21,7 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 The goal of this manual is to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
 
-My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system. I found myself frustrated enough from learning it that I thought about giving up and writing my own solution, but I know from experience that Addressables has tons of value out of the box - I wrote a primitive version of this system for Hearthstone, and I'd like to avoid doing that again if I can help it. I'd like to help others avoid doing that as well.
+My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system. I know from experience that Addressables has tons of value out of the box, but a lot of it is hidden behind layers of complexity. I wrote a worse version of this system for Hearthstone, and I'd like to avoid doing that again. I'd like to help others avoid doing that as well because doing that doesn't provide much value for your project.
 
 This doc was inspired by [Amazon Web Services In Plain English](https://expeditedsecurity.com/aws-in-plain-english/)
 
