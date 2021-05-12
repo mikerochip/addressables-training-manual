@@ -205,7 +205,7 @@ Profiles define a set of variables, and these variables are directly referenced 
 
 1. BundlePath = Foo.LoadPath (**this references a Profile var**) + Foo.Name + a hash value
 1. Convert the AssetGroup into a bundle or bundles(!) depending on the AssetGroupSchemas and the settings on those
- 1. NOTE: The pre-provided BundledAssetGroupSchema has a Bundle Mode which really affects this
+  * NOTE: The pre-provided BundledAssetGroupSchema has a Bundle Mode which really affects this
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
 
