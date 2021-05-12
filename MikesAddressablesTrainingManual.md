@@ -195,7 +195,11 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity's Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called "Simulate Groups" which makes things really confusing! That one basically lets you simulate network delays as if you were in a deployed build even though you're still in the editor.
 
-**AssetGroupSchemas**: These are fields on your AssetGroups (remember, AssetGroups are just ScriptableObjects in your Asset tree) and are the primary mechanism that Build Scripts use to determine how to transform your AssetGroups into Asset Bundles when a content build is made. Part of what the build process does is loop through each AssetGroup and get its GroupSchemas to help determine how the group should be transformed into bundles. There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema```) are added to AssetGroups out of the box and will get you pretty much exactly what you need. There's plenty to learn and configure with ```BundledAssetGroupSchema``` so, even though the GroupSchemas system is intended to be user-extensible (via subclassing), practically speaking, you probably won't need to make your own since the pre-provided ones cover a lot of use cases. 
+**AssetGroupSchemas**: These are fields on your AssetGroups (remember, AssetGroups are just ScriptableObjects in your Asset tree) and are the primary mechanism that Build Scripts use to determine how to transform your AssetGroups into Asset Bundles when a content build is made. Part of what the build process does is loop through each AssetGroup and get its GroupSchemas to help determine how the group should be transformed into bundles.
+
+There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema```) are added to AssetGroups out of the box and will get you pretty much exactly what you need. There's plenty to learn and configure with ```BundledAssetGroupSchema``` so, even though the GroupSchemas system is intended to be user-extensible (via subclassing), practically speaking, you probably won't need to make your own since the pre-provided ones cover a lot of use cases.
+
+It's worth noting that ```BundledAssetGroupSchema``` has a ```Bundle Mode``` which lets you determine whether to put all assets in a group into one bundle vs individual bundles, and I called it out because it's a field you'll likely tweak regularly depending on the group.
 
 **Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a custom syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
 
@@ -205,7 +209,6 @@ Profiles define a set of variables, and these variables are directly referenced 
 
 1. BundlePath = Foo.LoadPath (**this references a Profile var**) + Foo.Name + a hash value
 1. Convert the AssetGroup into a bundle or bundles(!) depending on the AssetGroupSchemas and the settings on those
-   * NOTE: The pre-provided ```BundledAssetGroupSchema``` has a ```Bundle Mode``` which lets you determine whether to put all assets into a group into one bundle vs individual bundles
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
 
