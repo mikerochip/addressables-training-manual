@@ -45,7 +45,7 @@ Addressables has a workflow specifically intended for deploying content updates 
 
 # Content Builds and Build Artifacts
 
-In order for the Addressables runtime to work, you have to make a content build. For me, the hardest thing to learn about Addressables were the content build artifacts. What gets generated, where they go, what you're expected to do with them, etc. None of that was clear.
+In order for the Addressables runtime to work, you have to make a content build. For me, the hardest thing to learn about Addressables were the content build artifacts. What gets generated, where they go, what you're expected to do with them, etc. Additionally, the documentation and the artifacts themselves don't make it obvious what you're supposed to do after a content build.
 
 First, a note about the term "artifact." This is a build engineering term, which is basically a fancy term for "output file." Although the official docs don't use it, I use it because it's an industry standard term. It's also nice for its flexibility - you don't have to list out every file type that a build can produce if you just say "artifacts" since some build systems can output dozens to hundreds of different file types.
 
