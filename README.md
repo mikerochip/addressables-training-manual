@@ -35,7 +35,7 @@ You can use Addressables purely for organizing your assets. Essentially, you use
 
 ## 2. Deploy OTA content to reduce app store build size
 
-You can use Addressables to reduce the size of your player builds by deploying assets to a server instead of shipping it with your builds. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits.
+You can use Addressables to reduce the size of your player builds by deploying assets to a server instead of shipping it with your builds. As noted above, this is possible because your content becomes asset bundles, which are files that can be managed independently of your player. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits.
 
 ## 3. Deploy updated content OTA
 
