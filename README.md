@@ -27,15 +27,17 @@ This doc was inspired by [Amazon Web Services In Plain English](https://expedite
 
 # Use Cases
 
-The official docs [have a page about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets) but it focuses on optimizing asset load times. Here are some ways Addressables adds value to your project as a whole.
+The official docs [have a page about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets), but it focuses on optimizing asset load times.
 
-## 1. Decouple content from the player build
+Here are some business and productivity use cases.
 
-You can use Addressables purely for organizing your assets. Essentially, you use AssetGroups to organize your source assets, allowing you to separate where an asset lives from how your code loads it. Additionally, your built assets are deployed as asset bundles, allowing you to examine and load them as their own files (by default, Unity couples content with binaries when you make a player build). In other words, Addressables gives you a cleaner split between your data and your code and binaries. This use case is primarily meant for scaling up a project, and to support cleaner separations between engineering and artist workflows, for example. If this is the only use case you care about, you can basically stop reading here. The only other detail you really need to know is that you have to make an Addressables content build before your player build can load assets.
+## 1. Decouple content from builds
+
+You can use Addressables purely for organizing your assets. This use case is primarily meant for scaling up as your project and team grows in size. A well organized Addressables workflow can enable cleaner workflows for engineering and art. If this is the only use case you care about, you can basically stop reading here. The only other detail you really need to know is that you have to make an Addressables content build before your player build can load assets.
 
 ## 2. Deploy OTA content to reduce app store build size
 
-You can use Addressables to reduce the size of your player builds by deploying assets to a server instead of shipping it with your builds. As noted above, this is possible because your content becomes asset bundles, which are files that can be managed independently of your player. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits.
+You can use Addressables to reduce the size of your builds by deploying assets to a server instead of shipping them with your builds. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits. This use case is possible because your assets get transformed into asset bundles, which are basically a type of asset that Unity can load at runtime (normally, assets in Unity must be baked into your builds).
 
 ## 3. Deploy updated content OTA
 
@@ -49,7 +51,7 @@ First, a note about the term "artifact." This is a build engineering term, which
 
 ## What is a content build?
 
-A content build is the collection of artifacts that let the Addressables runtime load your Addressable assets. A content build is platform specific since the underlying storage system for Addressables is platform specific (asset bundles).
+A content build is the collection of artifacts that let the Addressables runtime load your Addressable assets. Content builds are platform specific since Addressables is, in simple terms, a build-and-load management system for asset bundles, and asset bundles are platform specific.
 
 When testing in the editor, you don't actually need to care about what a content build is. Addressables defaults to loading assets from your project directly, just like other types of Unity assets.
 
