@@ -31,7 +31,7 @@ Here are some business and productivity use cases.
 
 ## 1. Decouple content from builds
 
-You can use Addressables purely for organizing your assets. This use case is primarily meant for scaling up as your project and team grows in size. A well organized Addressables workflow can enable cleaner workflows for engineering and art. If this is the only use case you care about, you can basically stop reading here. The only other detail you really need to know is that you have to make an Addressables content build before your player build can load assets.
+You can use Addressables purely for organizing your assets. This use case is primarily meant for scaling up as your project and team grows in size. A well organized set of AssetGroups can enable cleaner workflows for engineering and art. If this is the only use case you care about, you can basically stop reading here. The only other detail you really need to know is that you have to make an Addressables content build before your player build can load assets.
 
 ## 2. Deploy OTA content to reduce app store build size
 
