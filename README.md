@@ -1,7 +1,5 @@
 # Mike's Addressables Training Manual
 
-*Mike Schweitzer, Principal Engineer, Second Dinner*
-
 This doc was originally published Jan 13, 2020 against Addressables 1.16.15
 
 # Table of Contents
