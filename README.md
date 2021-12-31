@@ -349,9 +349,9 @@ If you don't use that, then the next best advice is "use a major cloud provider.
 * Azure: Blob storage
 * GCP: Cloud Storage
 
-Cloud providers also have CDN services that you probably want to put in front of their file storage services, for better performance.
+Cloud providers also have CDN services that you probably want to put in front of their file storage services, for better performance. For AWS CloudFront is typically what people put in front of S3, so typically clients will download from a CloudFront URL, which points to an S3 bucket as its "origin."
 
-If you're feeling very DIY and want to run a local web server but use a public-facing URL to do it, you can use ngrok.
+If you're feeling very DIY, you can run a local web server and use a public-facing URL by using ngrok.
 
 ### **Q: What Addressables artifacts need to be uploaded to CCD?**
 
