@@ -151,7 +151,7 @@ Things to remember:
 * You organize your project assets into AssetGroups
 * Each AssetGroup is a ScriptableObject with its own settings
 * The AssetGroup's *Build and Load Paths* settings are what determine whether the group is Local or Remote
-* AssetGroup settings are also what determine whether a group becomes one or many many Asset Bundles
+* AssetGroup settings are also what determine whether a group becomes one or many Asset Bundles
 
 # Content Update Builds
 
