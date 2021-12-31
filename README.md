@@ -136,13 +136,13 @@ Your selected profile's Remote Build Path, which defaults to `<YourProjectPath>/
 
 Here's the more detailed breakdown:
 
-**Local artifacts**: I refer to as prepackaged since they are similar to assets in Resources folders. They don't need any special deployment steps after your player build is done.
+**Local Artifacts**: I refer to these as prepackaged since they are similar to assets in Resources folders. They don't need any special deployment steps after your player build is done.
 
-**Remote artifacts**: These are not immediately useful after an Addressables content build. They just get copied to the Remote Build Path after a content build, which is just a path on your hard drive. You are responsible for deploying the files in that path to the Remote Load Path after the content build is complete.
+**Local System Files**: These are also prepackaged. They are basically configuration that Addressables needs to locate artifacts (local or remote) and remote system files. Additionally, these files also enable support for injecting custom configuration and behavior at startup (follow the breadcrumbs of InitializationObjects and the CacheInitialization class to see an example of that).
 
-**Local System Files**: These are basically scaffolding that Addressables needs for startup and configuration. Addressables wouldn't know how to load any asset bundles without these. These files also represent your opportunity to inject custom configuration and logic at startup (follow the breadcrumbs of InitializationObjects and the CacheInitialization class to see that in action).
+**Remote Artifacts**: These are not immediately useful after an Addressables content build. They just get copied to the Remote Build Path after a content build, which is just a path on your hard drive. You are responsible for deploying the files in that path to the Remote Load Path after the content build is complete.
 
-**Remote System Files**: These, which are pretty much just catalog files, are what enable the Addressables runtime to load OTA content. When you initialize Addressables at runtime, you need to tell it to update its content catalog with a remote content catalog (which is deployed just like any other remote artifacts), and by doing that, you enable the Addressables runtime to find where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
+**Remote System Files**: These are what enable the Addressables runtime to load OTA content. These are pretty much just catalog files, and catalog files are what tell the Addressables runtime where remote artifacts are located. When you initialize Addressables at runtime, you need to tell it to update its content catalog with a remote content catalog (which is deployed just like any other remote artifacts), and by doing that, you enable the Addressables runtime to find where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
 
 **Asset Bundles**: For the most part, Unity can only load assets at arbitrary paths if they are packaged into Asset Bundles. That's why Addressables outputs these.
 
