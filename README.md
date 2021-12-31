@@ -311,7 +311,7 @@ A: See this:
   <tr>
     <td>Simulate Groups (advanced)</td>
     <td>BuildScriptVirtual.cs</td>
-    <td>???</td>
+    <td>Lets you simulate network loading delays when the Addressables runtime loads bundles. Weirdly, the settings for the loading delays are not exposed in a UI anywhere, so I wouldn't consider this is a well-supported feature (yet?).</td>
   </tr>
   <tr>
     <td>Use Existing Build (requires built groups)</td>
