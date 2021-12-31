@@ -201,16 +201,16 @@ It's worth noting that ```BundledAssetGroupSchema``` has a ```Bundle Mode``` whi
 
 **Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a custom syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
 
-Profiles define a set of variables, and these variables are directly referenced by AssetGroups. **These 2 concepts together are how you specify whether an AssetGroup gets built into Local or Remote artifacts!** If a group's LoadPath is a RemoteLoadPath, it's a Remote bundle. Here's a simplified sequence of how the build system uses these:
+Profiles define a set of variables, and these variables are referenced by AssetGroups. **These 2 concepts together are how you specify whether an AssetGroup gets built into Local or Remote artifacts!** For example, if a group's LoadPath uses the RemoteLoadPath profile variable, then it's a Remote bundle. Here's a simplified sequence of how the build system uses these:
 
 *For each AssetGroup Foo:*
 
-1. BundlePath = Foo.LoadPath (**this references a Profile var**) + Foo.Name + a hash value
-1. Convert the AssetGroup into a bundle or bundles(!) depending on the AssetGroupSchemas and the settings on those
+1. BundlePath = Foo.LoadPath (**the LoadPath references a Profile var**) + Foo.Name + a hash value
+1. Convert the AssetGroup into a bundle or bundles(!) depending on the settings of the AssetGroups' AssetGroupSchemas
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
 
-Honestly, I simplified this a bit. It's a bit more complex because AssetGroups don't reference profile variables directly - they rely on a thing called AssetGroupSchemas. AssetGroupSchemas are attached to AssetGroups and are the thing that references profile variables directly.
+Honestly, I simplified this a bit. It's a bit more complex because AssetGroups don't reference profile variables directly. They reference AssetGroupSchemas, which reference profile variables.
 
 # Settings
 
