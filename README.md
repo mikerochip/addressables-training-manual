@@ -173,7 +173,7 @@ There are 2 ways to make a content update build:
   * **Note**: If you don't want to show a file picker (e.g. a build server), then **don't** call this. You'll need to hard code or pass in a path to addressables_content_state.bin
   * Next, call: `ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)`
 
-The output is basically the Remote Deploy Locations in the artifact table above.
+The output of a content update build is basically the Remote Deploy column in the artifact table above.
 
 You'll want to look at the official docs for the full picture on this topic. This section is more here for summarizing and clarifying the official docs since they have some errors (e.g. referring to steps 4-6 that don't exist) and can be difficult to understand. 
 
