@@ -195,7 +195,7 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **AssetGroupSchemas**: These are fields on your AssetGroups (remember, AssetGroups are just ScriptableObjects in your Asset tree) and are the primary mechanism that Build Scripts use to determine how to transform your AssetGroups into Asset Bundles when a content build is made. Part of what the build process does is loop through each AssetGroup and get its GroupSchemas to help determine how the group should be transformed into bundles.
 
-There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema```) are added to AssetGroups out of the box and will get you pretty much exactly what you need. There's plenty to learn and configure with ```BundledAssetGroupSchema``` so, even though the GroupSchemas system is intended to be user-extensible (via subclassing), practically speaking, you probably won't need to make your own since the pre-provided ones cover a lot of use cases.
+There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema```) are added to AssetGroups by default and will get you pretty much exactly what you need. There's plenty to learn and configure with ```BundledAssetGroupSchema``` so, even though the GroupSchemas system is intended to be user-extensible (via subclassing), practically speaking, you probably won't need to make your own since the pre-provided ones cover a lot of use cases.
 
 It's worth noting that ```BundledAssetGroupSchema``` has a ```Bundle Mode``` which lets you determine whether to put all assets in a group into one bundle vs individual bundles, and I called it out because it's a field you'll likely tweak regularly depending on the group.
 
@@ -238,7 +238,9 @@ InitializationObjects allow you to run logic and save state at content build tim
 
 ## AssetGroups
 
-Every AssetGroup ScriptableObjects has settings. These affect how the group is converted into asset bundles by the build system.
+Every AssetGroup's ScriptableObject has settings. The AssetGroupSchemas on the AssetGroups are what determine which settings you see. These settings affect how the group is converted into asset bundles by the build system.
+
+By default, when you create an AssetGroup, it will have the ```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema``` and here are some of their more important settings:
 
 * **Build and Load Paths section**: This is what determines whether your bundle will be local or remote
 * **Advanced Options > Compression**: See the guidance at https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms
