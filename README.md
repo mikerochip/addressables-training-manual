@@ -272,9 +272,9 @@ So why do you care to learn what these are? Because the downside of Addressables
 
 A: This is a bit weird, and honestly a bit of a hack if you ask me. `StreamingAssets` itself is a confusing name, but it helps to know the etymology. The naming is a Unity thing, not an Addressables thing. This is a special folder that was created in the early days of Unity, originally intended for deploying movie files with Unity player builds. They chose the name "StreamingAssets" because the intention was for this to be the place where you put large media files that the Unity engine would have to stream into memory at runtime.
 
-Why is this relevant to Addressables? Because of a side effect. Unity copies any files in this folder **verbatim** into your built player. That means file paths are preserved. So, the Addressables runtime abuses this fact to make part of its job easier: loading Local files. The Addressables runtime can assume any Local files (either system files or asset bundles) are relative to `Application.streamingAssetsPath`. If you see `{UnityEngine.AddressableAssets.Addressables.RuntimePath}` in your LocalLoadPaths, that basically the `StreamingAssets` folder, which in UnityEngine's runtime API is `Application.streamingAssetsPath`.
+Why is this relevant to Addressables? Because of a side effect. Unity copies any files in this folder **verbatim** into a similar location in player builds, meaning that you can use the `Application.streamingAssetsPath` property as a consistent base file path in both the editor (e.g. when Addressables writes paths into its catalog) and at runtime (e.g. when the Addressables runtime needs to load Local files). If you see `{UnityEngine.AddressableAssets.Addressables.RuntimePath}` in Profile variables, that's basically an alias for `Application.streamingAssetsPath`.
 
-That's it! That's the only reason Addressables uses this folder! It's kind of annoying that the Addressables BuildScripts don't delete this folder if they are the only thing using it, but oh well.
+That's it! That's the only reason Addressables uses this folder! It's kind of annoying that the Addressables BuildScripts don't delete the `StreamingAssets` folder if they are the only thing using it, but oh well.
 
 ### **Q: What version control ignore rules do I need?**
 
