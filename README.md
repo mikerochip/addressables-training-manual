@@ -221,6 +221,7 @@ There are A LOT of settings in Addressables, so I'm going to call out the ones y
 This is a ScriptableObject that contains settings, *some* of which are version controlled. It's quite confusing that there's no clear way to tell which settings are version controlled and which are not.
 
 * **Profile in Use**: Changes AddressableAssetSettings. This is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Groups window.
+  * **Warning: Because this setting changes the ScriptableObject and this object is intended to be source-controlled, you'll need to be very careful to change the setting back to its default value instead of committing it when you're done testing Addressables.**
 * **Build Remote Catalog**: Changes AddressableAssetSettings. You need to check this before you make a content update build.
 * **Send Profiler Events**: Does not change AddressableAssetSettings. This enables you to profile the system from the Addressables Event Viewer. This actually changes a file in your `Library/com.unity.addressables` folder, it turns out, effectively making this a user-specific setting.
 
@@ -320,18 +321,22 @@ A: See this:
   </tr>
 </table>
 
-### **Q: How do I test different platforms in a built player?**
+### **Q: How do I test Addressables in player builds, especially for different platforms?**
 
 A: This involves setting up Profiles. You have a few options:
 
 * Just use a single Profile that works all the time. Thankfully the Default profile uses some clever syntax to target the current user-selected platform, so this should mostly work out of the box. You'd want to change your RemoteLoadPath to wherever your remote bundles are deployed.
 * Create a set of profiles per-platform (iOS, Mac, Windows, etc) using the values of the UnityEditor.BuildTarget enum, e.g. you could have a Profile named iOS with RemoteLoadPath: https://myurl.com/mygame/environment/iOS
 
-### **Q: How do you specify which profile to use when you build?**
+### **Q: How do you specify which profile to use when you make a content build?**
 
-A: You can set a default in the AddressableAssetSettings Profile In Use field. If you use Unity Cloud Build, there is a specific setting for it when you're editing a UCB config.
+A: You can set this in the AddressableAssetSettings `Profile In Use` field.
 
-Pro tip: spend some time making the "Default" profile just work. If you're responsible for setting up this system, and you don't do that, your team will let you know about it. If you set it up well, you probably won't hear anything. Build engineering is a thankless job.
+When testing locally, keep in mind the warning above about changing this setting and the fact that it's source controlled. I believe it was an oversight or error in judgment on the authors' part to have the *selected value* be source controlled and coupled to the default value (seems fine for the default value to be source controlled).
+
+When using Unity Cloud Build, you can set a selected profile name in the Addressables section of a UCB config.
+
+Pro tip: spend some time making the "Default" profile just work for all possible combinations of platforms, build servers, and teammates' workflows. Not only will this avoid the sharp edge of the selected value being source controlled, it will also be less overhead for your team to deal with when testing on multiple platforms. If you're responsible for setting up this system, and you don't do that, it's only a matter of time before your team will let you know about it. If you do manage to make the Default work, you probably won't hear anything about it. Build engineering is a thankless job!
 
 ### **Q: How do you specify which groups should be local vs remote? Why should a group be local vs remote?**
 
