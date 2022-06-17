@@ -29,9 +29,13 @@ The official docs [have a page about this](https://docs.unity3d.com/Packages/com
 
 Here are some business and productivity use cases.
 
-## 1. Decouple content from builds
+## 1. Decouple assets from code and executables
 
-You can use Addressables purely for organizing your assets. This use case is primarily meant for scaling up as your project and team grows in size. A well organized set of AssetGroups can enable cleaner workflows for engineering and art. If this is the only use case you care about, you can basically stop reading here. The only other detail you really need to know is that you have to make an Addressables content build before your player build can load assets.
+You can use Addressables purely for improving the organization of your workflows and for making cleaner builds. Out of the box, Unity has a very tight coupling between a project's code and assets, and this coupling continues (in a different form) in builds. This is a strength of Unity for early-stage projects, but tends to become a hindrance for larger scale projects because most teams fail to realize when these transitions happen, so they fail to create guardrails at project transition points. In my experience, many devs struggle to realize or articulate this phenomenon, and when you hear them say "Unity sucks for large projects" or similar it's usually a symptom of the aforementioned problem.
+
+Addressables can actually be the guardrails you need to help you scale, and you can use it purely for that purpose without the other benefits described below. Addressables can become the contract between content creators and engineering via assigning an ```Address``` to assets and grouping them into AssetGroups. So engineers load assets by Address (or Label), and content creators can organize their assets however they want as long as the Address (or Label) still points to the assets that the code expects to load.
+
+So this use case is primarily meant for scaling up your project's processes. If this is the only use case you care about, this guide won't help you much vs the official docs. The official docs teach you how to use things like ```Address```, ```Label```, ```AssetGroup```, ```AssetReference``` etc. The only "gotcha" is that you need to make sure that in your Unity Preferences (NOT Project Settings) you've flagged the Addressables system to ```Build Addressables on Player Build```.
 
 ## 2. Deploy OTA content to reduce app store build size
 
