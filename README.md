@@ -29,7 +29,7 @@ The official docs [have a page about this](https://docs.unity3d.com/Packages/com
 
 Here are some business and productivity use cases.
 
-## 1. Decouple assets from code and executables
+## 1. Decouple assets from code (in editor and builds)
 
 You can use Addressables purely for improving the organization of your workflows and for making cleaner builds. Out of the box, Unity has a very tight coupling between a project's code and assets, and this coupling continues (in a different form) in builds. This is a strength of Unity for early-stage projects, but tends to become a hindrance for larger scale projects because most teams fail to realize when these transitions happen, so they fail to create guardrails at project transition points. In my experience, many devs struggle to realize or articulate this phenomenon, and when you hear them say "Unity sucks for large projects" or similar it's usually a symptom of the aforementioned problem.
 
