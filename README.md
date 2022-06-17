@@ -19,6 +19,14 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 The Addressables system is a Unity package that allows developers to load assets by address. Doing this unlocks your ability to have a single, unified workflow for loading game content dynamically (the killer feature, with many use cases) and for improving guardrails between content creators and engineering.
 
+## Why Addressables?
+
+Out of the box, Unity has a very tight coupling between a project's code and assets, and this coupling continues (in a different form) in builds. This is a strength of Unity for early-stage projects, but tends to become a hindrance for larger scale projects because the default workflow (1) makes responsibilities between team members blurry and confusing and (2) you have to refactor large portions of your project to be able to download content dynamically if you stick with the default Unity workflow.
+
+Addressables is a system that helps the default Unity workflow convert into a scalable one, and you can use it purely for that purpose without the dynamic loading capability that it unlocks. Addressables becomes the contract between content creators and engineering via assigning an Address to assets and grouping the assets into AssetGroups. So engineers load assets by Address (or Label), and content creators can organize their assets however they want as long as the Address (or Label) still points to the assets that the code expects to load.
+
+Addressables helps (but doesn't eliminate) a common misperception that Unity is only good for small or early stage projects. When folks say that, it's **usually** a symptom of a failure to effectively plan for project transitions. In my experience, many devs struggle to articulate this phenomenon. It's human nature to find external forces to blame when things don't go well. There are things Unity isn't good at, but having a clean content creator / engineering workflow is less the case now. In contrast, Unreal "doesn't have this problem" because content creation and engineering workflows are so  different that the guardrails are there by default, for all intents and purposes.
+
 ## What is This?
 
 The goal of this manual is to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
@@ -35,11 +43,7 @@ Here are some business and productivity use cases.
 
 ## 1. Decouple assets from code (in editor and builds)
 
-You can use Addressables purely for improving the organization of your workflows and for making cleaner builds. Out of the box, Unity has a very tight coupling between a project's code and assets, and this coupling continues (in a different form) in builds. This is a strength of Unity for early-stage projects, but tends to become a hindrance for larger scale projects because most teams fail to realize when these transitions happen, so they fail to create guardrails at project transition points. In my experience, many devs struggle to realize or articulate this phenomenon, and when you hear them say "Unity sucks for large projects" or similar it's usually a symptom of the aforementioned problem.
-
-Addressables can actually be the guardrails you need to help you scale, and you can use it purely for that purpose without the other benefits described below. Addressables can become the contract between content creators and engineering via assigning an ```Address``` to assets and grouping them into AssetGroups. So engineers load assets by Address (or Label), and content creators can organize their assets however they want as long as the Address (or Label) still points to the assets that the code expects to load.
-
-So this use case is primarily meant for scaling up your project's processes. If this is the only use case you care about, this guide won't help you much vs the official docs. The official docs teach you how to use things like ```Address```, ```Label```, ```AssetGroup```, ```AssetReference``` etc. The only "gotcha" is that you need to make sure that in your Unity Preferences (NOT Project Settings) you've flagged the Addressables system to ```Build Addressables on Player Build```.
+You can use Addressables purely for improving the organization of your project and for making cleaner builds. Using it in this way means that instead of loading anything from a server or CDN, you'd just load everything from your build. This use case is primarily meant for introducing guardrails and scaling up processes. If this is the only use case you care about, this guide will help you understand the system better, but won't help you a ton with your work. You'll just want to edit your Addressables profiles such that you copy/paste your Local fields into your Remote fields. The official docs teach you how to use things like ```Address```, ```Label```, ```AssetGroup```, ```AssetReference``` etc. The only "gotcha" is that you need to make sure that in your Unity Preferences (NOT Project Settings) you've flagged the Addressables system to ```Build Addressables on Player Build```.
 
 ## 2. Deploy OTA content to reduce app store build size
 
