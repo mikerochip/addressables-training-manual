@@ -15,6 +15,10 @@ This doc was originally published Jan 13, 2020 against Addressables 1.16.15
 
 So! You start looking into Addressables, and...aren't sure what to do next. Maybe you installed the package and thought...what now? Maybe you tried to read the official docs and became confused. Maybe you started asking yourself whether it's you or the system. This happened to me, and I made this manual to help people understand the system and encourage them to adopt it instead of giving up on it.
 
+## What is Addressables?
+
+The Addressables system is a Unity package that allows developers to load assets by address. Doing this unlocks your ability to have a single, unified workflow for loading game content dynamically (the killer feature, with many use cases) and for improving guardrails between content creators and engineering.
+
 ## What is This?
 
 The goal of this manual is to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
