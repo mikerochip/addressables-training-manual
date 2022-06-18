@@ -9,6 +9,7 @@ It is currently written against Addressables 1.20.0
 * [Use Cases](#use-cases)
 * [Content Builds and Build Artifacts](#content-builds-and-build-artifacts)
 * [Content Update Builds](#content-update-builds)
+* [Confusing Terminology](#confusing-terminology)
 * [Settings](#settings)
 * [Questions and Answers](#questions-and-answers)
 
