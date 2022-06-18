@@ -66,15 +66,17 @@ First, a note about the term "artifact." This is a build engineering term, which
 
 ## What is a content build?
 
-A content build is the collection of artifacts that let the Addressables runtime load your Addressable assets. Content builds are platform specific since Addressables is, in simple terms, a build-and-load management system for asset bundles, and asset bundles are platform specific.
+A content build is the collection of artifacts that let the Addressables runtime load your Addressable assets.
+
+Content builds are platform specific because Addressables is, in simple terms, an abstraction for managing asset bundles. Asset bundles are platform specific.
 
 When testing in the editor, you don't actually need to care about what a content build is. Addressables defaults to loading assets from your project directly, which is Unity's default behavior.
 
-When testing a build, you'll need to make a content build first. Content builds are made automatically by default when you make a player build.
+When testing outside the editor, you'll need to make a content build. Content builds are made automatically when you make a player build.
 
 ## Making a content build manually
 
-If you're just iterating on content with no code changes, you can speed up iteration times dramatically by building content manually.
+If you're only iterating on content changes and not code changes, you can speed up iteration times dramatically by only building content.
 
 * From the UI
   * Open the Addressables Groups window
