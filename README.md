@@ -18,21 +18,27 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 ## What is Addressables?
 
-The Addressables system is a Unity package that allows developers to load assets by Address. Doing this unlocks your ability to have a single, scalable workflow for loading game content after a game goes live (its biggest selling point). It also helps you improve content creation guardrails so your workflow can better scale up with your team and project size.
+The Addressables system is a Unity package that allows developers to load assets by Address. Doing this unlocks your ability to load assets from wherever you want. You can load your assets from some place on disk, from a server, wherever you want.
 
-## Why Addressables?
-
-Out of the box, Unity has a very tight coupling between a project's code and assets, and a similar coupling exists in builds. This is a strength of Unity in the early-stage: you can move fast and there are less barriers to entry between content creation and engineering. The downside to this coupling is that it (1) makes responsibilities between team members blurry and confusing and (2) forces you to refactor large portions of your project to support downloadable content (if you don't plan ahead). This has led to a common misperception about Unity, which is that it's only good for early-stage projects.
-
-Addressables solves this problem by creating a decoupled interface between assets and code. You can use it purely for organizing your project and scaling up your workflows, if you want, but you can also use the system to load content for your live game. The way this works is that content creators assign an Address to assets and then group the assets into AssetGroups. Engineers can then load assets by Address. So content creators can organize their assets however they want as long as the code loads them by Address, and engineers can tweak settings on AssetGroups to optimize load times.
+**Addressables does not provide an asset hosting solution out of the box.** It just unlocks your ability to load assets regardless of where they live. You are still responsible for finding a hosting solution and managing that solution.
 
 ## What is This Manual?
 
-I created this manual to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
+My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system.
 
-My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system. I know from experience that Addressables has tons of value out of the box, but a lot of it is hidden behind layers of complexity. I wrote a worse version of this system for Hearthstone, and I'd like to avoid doing that again. I'd like to help others avoid doing that as well because doing that doesn't provide much value for your project.
+Devs typically start looking into Addressables to add downloadable content support to their games. Eventually, they come to the disappointing realization that it doesn't upload anything to anywhere. This disappointment leads many devs to flip the table over and determine that they will simply write their own solution. This is a foolish conclusion to come to because it's easy to underestimate the workload involved. I know this from experience because I wrote a downloadable asset solution for Hearthstone long before Addressables existed. I'd like to avoid doing that again. I'd like to help others avoid doing that as well. It doesn't provide value for your project.
 
 This doc was inspired by [Amazon Web Services In Plain English](https://expeditedsecurity.com/aws-in-plain-english/)
+
+## Why Bother with Addressables?
+
+Out of the box, Unity has a very tight coupling between a project's code and assets, and a similar coupling exists in builds. This is a strength of Unity in the early-stage: you can move fast and there are less barriers to entry between content creation and engineering. The downside to this coupling is that it (1) makes responsibilities between content creators and engineers blurry and confusing and (2) forces you to refactor large portions of your project to support downloadable content. This has led to a common misperception about Unity, which is that it's only good for small projects.
+
+Out of the box, the Addressables system's main value prop is to help you scale your workflow. It creates a decoupled interface between assets and code: you specify an Address for an asset, and the code loads whatever is at that Address. That's it!
+
+The under-marketed upside to this system is that it leads to a clearer separation of responsibilities between content creation and engineering. Guess what? That leads to a more scalable workflow. It probably would have benefited Unity's perception to have Addressables be a built-in, mostly hidden from the user, system than it is today, but here we are. That's why I wrote this manual!
+
+It's worth noting that Unity provides a service called Cloud Content Delivery (CCD) to make it easy to host your assets and fill that void you felt when you first started looking into Addressables, but server hosting solutions are out of scope for this manual. I talk about this briefly in the Q&A section at the bottom.
 
 # Use Cases
 
