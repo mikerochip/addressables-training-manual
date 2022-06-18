@@ -150,9 +150,9 @@ Here's the more detailed breakdown:
 
 **Local Artifacts**: I refer to these as prepackaged since they are similar to assets in Resources folders. They don't need any special deployment steps after your player build is done.
 
-**Local System Files**: These are also prepackaged. They are basically configuration that Addressables needs to locate artifacts (local or remote) and remote system files. Additionally, these files also enable support for injecting custom configuration and behavior at startup (follow the breadcrumbs of InitializationObjects and the CacheInitialization class to see an example of that).
+**Local System Files**: These are also prepackaged. They are basically configuration that Addressables needs to locate artifacts (local or remote) and remote system files. Additionally, these files also enable support for injecting custom configuration and behavior at startup (follow the breadcrumbs of `InitializationObject`s and the `CacheInitialization` class to see an example of that).
 
-**Remote Artifacts**: These are not immediately useful after an Addressables content build. They just get copied to the Remote Build Path after a content build, which is just a path on your hard drive. You are responsible for deploying the files in that path to the Remote Load Path after the content build is complete.
+**Remote Artifacts**: These are not immediately useful after an Addressables content build. They just get copied to the `RemoteBuildPath` after a content build, which is just a path on your hard drive. You are responsible for deploying the files in that path to the `RemoteLoadPath` after the content build is complete.
 
 **Remote System Files**: These are what enable the Addressables runtime to load OTA content. These are pretty much just catalog files, and catalog files are what tell the Addressables runtime where remote artifacts are located. When you initialize Addressables at runtime, you need to tell it to update its content catalog with a remote content catalog (which is deployed just like any other remote artifacts), and by doing that, you enable the Addressables runtime to find where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
 
@@ -178,7 +178,7 @@ There are 2 ways to make a content update build:
 
 * From the UI
   * Open the Addressables Groups window
-  * Build > Update a Previous Build
+  * `Build > Update a Previous Build`
   * Pick the appropriate addressables_content_state.bin i.e. `Assets/AddressableAssetsData/<PlatformName>/addressables_content_state.bin`
 * From an editor script
   * If you want to show a file picker for addressables_content_state.bin, first call: `ContentUpdateScript.GetContentStateDataPath(true)`
@@ -218,7 +218,7 @@ Profiles define a set of variables, and these variables are referenced by AssetG
 *For each AssetGroup Foo:*
 
 1. BundlePath = Foo.LoadPath (**the LoadPath references a Profile var**) + Foo.Name + a hash value
-1. Convert the AssetGroup into a bundle or bundles(!) depending on the settings of the AssetGroups' AssetGroupSchemas
+1. Convert the AssetGroup into a bundle (or bundles!) depending on the settings of the AssetGroups' AssetGroupSchemas
 1. Write the bundles to disk using BundlePath
 1. Write the BundlePath into the content catalog
 
