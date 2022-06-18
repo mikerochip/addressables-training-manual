@@ -80,7 +80,7 @@ If you're only iterating on content changes and not code changes, you can speed 
 
 * From the UI
   * Open the Addressables Groups window
-  * ```Build > New Build > Default Build Script```
+  * `Build > New Build > Default Build Script`
 * From an editor script
   * Call `Addressables.BuildPlayerContent()`
 
@@ -112,10 +112,10 @@ Here's a table. Note that "System Files" is a term I made up, not an official te
     <td>Asset Bundles</td>
     <td>
       <li>A special AssetGroup called Built In Data</li>
-      <li>Any AssetGroups with Build and Load Paths set to local paths, typically LocalBuildPath and LocalLoadPath</li>
+      <li>Any AssetGroups with Build and Load Paths set to LocalBuildPath and LocalLoadPath</li>
     </td>
     <td>
-      <li>Any AssetGroups with Build and Load Paths set to remote paths, typically RemoteBuildPath and RemoteLoadPath</li>
+      <li>Any AssetGroups with Build and Load Paths set to RemoteBuildPath and RemoteLoadPath</li>
     </td>
   </tr>
 </table>
