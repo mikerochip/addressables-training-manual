@@ -17,19 +17,17 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 ## What is Addressables?
 
-The Addressables system is a Unity package that allows developers to load assets by address. Doing this unlocks your ability to have a single, unified workflow for loading game content dynamically (the killer feature, with many use cases) and for improving guardrails between content creators and engineering.
+The Addressables system is a Unity package that allows developers to load assets by Address. Doing this unlocks your ability to have a single, scalable workflow for loading game content after a game goes live (its biggest selling point). It also helps you improve content creation guardrails so your workflow can better scale up with your team and project size.
 
 ## Why Addressables?
 
-Out of the box, Unity has a very tight coupling between a project's code and assets, and this coupling continues (in a different form) in builds. This is a strength of Unity for early-stage projects, but tends to become a hindrance for larger scale projects because the default workflow (1) makes responsibilities between team members blurry and confusing and (2) you have to refactor large portions of your project to be able to download content dynamically if you stick with the default Unity workflow.
+Out of the box, Unity has a very tight coupling between a project's code and assets, and a similar coupling exists in builds. This is a strength of Unity in the early-stage: you can move fast and there are less barriers to entry between content creation and engineering. The downside to this coupling is that it (1) makes responsibilities between team members blurry and confusing and (2) forces you to refactor large portions of your project to support downloadable content (if you don't plan ahead). This has led to a common misperception about Unity, which is that it's only good for early-stage projects.
 
-Addressables is a system that helps the default Unity workflow convert into a scalable one, and you can use it purely for that purpose without the dynamic loading capability that it unlocks. Addressables becomes the contract between content creators and engineering via assigning an Address to assets and grouping the assets into AssetGroups. So engineers load assets by Address (or Label), and content creators can organize their assets however they want as long as the Address (or Label) still points to the assets that the code expects to load.
+Addressables solves this problem by creating a decoupled interface between assets and code. You can use it purely for organizing your project and scaling up your workflows, if you want, but you can also use the system to load content for your live game. The way this works is that content creators assign an Address to assets and then group the assets into AssetGroups. Engineers can then load assets by Address. So content creators can organize their assets however they want as long as the code loads them by Address, and engineers can tweak settings on AssetGroups to optimize load times.
 
-Addressables helps (but doesn't eliminate) a common misperception that Unity is only good for small or early stage projects. When folks say that, it's **usually** a symptom of a failure to effectively plan for project transitions. In my experience, many devs struggle to articulate this phenomenon. It's human nature to find external forces to blame when things don't go well. There are things Unity isn't good at, but having a clean content creator / engineering workflow is less the case now. In contrast, Unreal "doesn't have this problem" because content creation and engineering workflows are so  different that the guardrails are there by default, for all intents and purposes.
+## What is This Manual?
 
-## What is This?
-
-The goal of this manual is to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
+I created this manual to get you up to speed more quickly than you could with only the official docs, source code, or experimenting. It's good for getting started or when you get stumped. It's not comprehensive.
 
 My main goal is to encourage other game devs to use Addressables by reducing the friction of learning the system. I know from experience that Addressables has tons of value out of the box, but a lot of it is hidden behind layers of complexity. I wrote a worse version of this system for Hearthstone, and I'd like to avoid doing that again. I'd like to help others avoid doing that as well because doing that doesn't provide much value for your project.
 
