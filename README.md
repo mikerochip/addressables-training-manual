@@ -48,7 +48,7 @@ Here are some business and productivity use cases.
 
 ## 1. Scale up your project's workflow
 
-You can use Addressables purely for improving workflow on your project. Because Addressables decouples assets from code, your project will benefit from being more organized and having builds that are easier to reason about. If this is the only use case you care about, then pretty much all you need to know is that you'll want to copy/paste your Local fields into your Remote fields in your Addressables profiles. Doing that will make all of your build artifacts human readable, but will also restrict you to loading content bundled with your builds (no server-side content). The only "gotcha" is that you need to make sure your Unity Preferences (NOT Project Settings) are flagged to ```Build Addressables on Player Build```.
+You can use Addressables purely for improving workflow on your project. Because Addressables decouples assets from code, your project will benefit from being more organized and having builds that are easier to reason about. If this is the only use case you care about, then pretty much all you need to know is that you'll want to copy/paste your Local fields into your Remote fields in your Addressables profiles. Doing that will make all of your build artifacts human readable, but will also restrict you to loading content bundled into your builds (no server-side content, have to upload new builds to get new content to users).
 
 ## 2. Deploy OTA content to reduce app store build size
 
