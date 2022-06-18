@@ -134,7 +134,7 @@ This artifact type doesn't fit neatly into the chart above. It's a special case 
 
 **Remote artifacts**
 
-Your selected profile's Remote Build Path, which defaults to `<YourProjectPath>/ServerData/`
+Your selected profile's `RemoteBuildPath`, which defaults to `<YourProjectPath>/ServerData/`
 
 **addressables_content_state.bin**
 
@@ -210,7 +210,7 @@ There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAs
 
 It's worth noting that ```BundledAssetGroupSchema``` has a ```Bundle Mode``` which lets you determine whether to put all assets in a group into one bundle vs individual bundles, and I called it out because it's a field you'll likely tweak regularly depending on the group.
 
-**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a custom syntax that you can look up in the official docs https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsProfiles.html.
+**Profiles**: Profiles are intended to be used in a similar way to Configurations in Visual Studio or Schemes in Xcode. They have a custom syntax that you can look up in the [official docs](https://docs.unity3d.com/Packages/com.unity.addressables@1.20/manual/AddressableAssetsProfiles.html).
 
 Profiles define a set of variables, and these variables are referenced by AssetGroups. **These 2 concepts together are how you specify whether an AssetGroup gets built into Local or Remote artifacts!** For example, if a group's LoadPath uses the RemoteLoadPath profile variable, then it's a Remote bundle. Here's a simplified sequence of how the build system uses these:
 
