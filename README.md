@@ -162,8 +162,9 @@ Here's the more detailed breakdown:
 Things to remember:
 
 * You organize your project assets into AssetGroups
-* Each AssetGroup is a ScriptableObject with its own settings
-* The AssetGroup's *Build and Load Paths* settings are what determine whether the group is Local or Remote
+* AssetGroups are ScriptableObjects saved to your Assets folder
+* AssetGroups live in ```Assets/AddressableAssetsData/AssetGroups/```. The Addressables Groups UI gets its data from this folder.
+* AssetGroups' ```Build and Load Paths``` setting is what determines whether the group is Local or Remote
 * AssetGroup settings are also what determine whether a group becomes one or many Asset Bundles
 
 # Content Update Builds
