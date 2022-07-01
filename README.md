@@ -368,9 +368,9 @@ If you don't use that, then the next best advice is "use a major cloud provider.
 * Azure: Blob storage
 * GCP: Cloud Storage
 
-Cloud providers also have CDN services that you probably want to put in front of their file storage services, for better performance. For AWS CloudFront is typically what people put in front of S3, so typically clients will download from a CloudFront URL, which points to an S3 bucket as its "origin."
+Cloud providers also have CDN services that you probably want to put in front of their file storage services, for better performance. For example, AWS CloudFront is typically what people put in front of S3, so typically clients will download from a CloudFront URL, which points to an S3 bucket as its "origin."
 
-If you're feeling very DIY, you can run a local web server and use a public-facing URL by using ngrok.
+If you really want to test remote downloads but don't want to host files on a remote server, you could use [ngrok](https://ngrok.com/) to DIY a solution. You should be able to run a local web server and use a public-facing URL that way, but I haven't tried it myself so YMMV.
 
 ### **Q: What Addressables artifacts need to be uploaded to CCD?**
 
