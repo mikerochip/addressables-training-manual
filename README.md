@@ -32,8 +32,6 @@ My main goal is to encourage other game devs to use Addressables by reducing the
 
 Devs typically start looking into Addressables to add downloadable content support to their games. Eventually, they come to the disappointing realization that it doesn't upload anything to anywhere. This disappointment leads many devs to flip the table over and determine that they will simply write their own solution. This is a foolish conclusion to come to because it's easy to underestimate the workload involved. I know this from experience because I wrote a downloadable asset solution for Hearthstone long before Addressables existed. I'd like to avoid doing that again. I'd like to help others avoid doing that as well. It doesn't provide value for your project.
 
-This doc was inspired by [Amazon Web Services In Plain English](https://expeditedsecurity.com/aws-in-plain-english/)
-
 ## Why Bother with Addressables?
 
 Out of the box, Unity has a very tight coupling between a project's code and assets, and a similar coupling exists in builds. This is a strength of Unity in the early-stage: you can move fast and there are less barriers to entry between content creation and engineering. The downside to this coupling is that it (1) makes responsibilities between content creators and engineers blurry and confusing and (2) forces you to refactor large portions of your project to support downloadable content. This has led to a common misperception about Unity, which is that it's only good for small projects.
