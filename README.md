@@ -20,9 +20,11 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 ## What is Addressables?
 
-The Addressables system is a Unity package that allows developers to load assets by Address. Doing this unlocks your ability to load assets from wherever you want. You can load your assets from some place on disk, from a server, wherever you want.
+The Addressables system is a Unity package that allows you to load assets at runtime by address rather than by using Resources, Streaming Assets, or rolling a custom solution on top of Asset Bundles.
 
-**Addressables does not provide an asset hosting solution out of the box.** It just unlocks your ability to load assets regardless of where they live. You are still responsible for finding a hosting solution and managing that solution.
+Loading by address unlocks your ability to rearrange the assets in your project and deploy your assets locally or to a server without having to change the code that loads the assets.
+
+**Addressables does not provide a server asset hosting solution out of the box.** You are responsible for finding a hosting solution and managing that solution.
 
 ## What is This Manual?
 
