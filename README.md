@@ -1,8 +1,12 @@
 # Mike's Addressables Training Manual
 
-This doc was originally published Jan 13, 2020 against Addressables 1.16.15
+*First Published:\
+Jan 13, 2020\
+Addressables 1.16.15*
 
-This document was last updated Mar 20, 2023 against Addressables 1.20.5
+*Last Update:\
+Mar 20, 2023\
+Addressables 1.20.5*
 
 # Table of Contents
 
