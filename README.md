@@ -2,7 +2,7 @@
 
 This doc was originally published Jan 13, 2020 against Addressables 1.16.15
 
-It is currently written against Addressables 1.20.0
+This document was last updated Mar 20, 2023 against Addressables 1.20.5
 
 # Table of Contents
 
@@ -72,7 +72,7 @@ Content builds are platform specific because Addressables is, in simple terms, a
 
 When testing in the editor, you don't actually need to care about what a content build is. Addressables defaults to loading assets from your project directly, which is Unity's default behavior.
 
-When testing outside the editor, you'll need to make a content build. Content builds are made automatically when you make a player build.
+When testing outside the editor, you'll need to make a content build. By default, content builds are made automatically when you make a player build.
 
 ## Making a content build manually
 
@@ -120,7 +120,7 @@ Here's a table. Note that "System Files" is a term I made up, not an official te
   </tr>
 </table>
 
-### Special case: addressables_content_state.bin
+### Special case: `addressables_content_state.bin`
 
 This artifact type doesn't fit neatly into the chart above. It's a special case that is used as the basis for content updates. This is covered more in the Content Update Builds section.
 
@@ -169,8 +169,8 @@ Things to remember:
 
 Things to remember:
 
-* An **addressables_content_state.bin** is a requirement for making content update builds. They're produced by content builds. This file is not intended to be deployed to users.
-* **addressables_content_state.bin** is placed in `Assets/AddressableAssetsData/<PlatformName>/`
+* An `addressables_content_state.bin` is a requirement for making content update builds. They're produced by content builds. This file is not intended to be deployed to users.
+* `addressables_content_state.bin` is placed in `Assets/AddressableAssetsData/<PlatformName>/`
 * In order for content to be able to be updated, you need to flag its AssetGroup as Can Change Post Release.
 * **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings inspector.
 
@@ -179,10 +179,10 @@ There are 2 ways to make a content update build:
 * From the UI
   * Open the Addressables Groups window
   * `Build > Update a Previous Build`
-  * Pick the appropriate addressables_content_state.bin i.e. `Assets/AddressableAssetsData/<PlatformName>/addressables_content_state.bin`
+  * Pick the appropriate `addressables_content_state.bin` i.e. `Assets/AddressableAssetsData/<PlatformName>/addressables_content_state.bin`
 * From an editor script
-  * If you want to show a file picker for addressables_content_state.bin, first call: `ContentUpdateScript.GetContentStateDataPath(true)`
-  * **Note**: If you don't want to show a file picker (e.g. a build server), then **don't** call this. You'll need to hard code or pass in a path to addressables_content_state.bin
+  * If you want to show a file picker for `addressables_content_state.bin`, first call: `ContentUpdateScript.GetContentStateDataPath(true)`
+  * **Note**: If you don't want to show a file picker (e.g. a build server), then **don't** call this. You'll need to hard code or pass in a path to `addressables_content_state.bin`
   * Next, call: `ContentUpdateScript.BuildContentUpdate(AddressableAssetSettingsDefaultObject.Settings, path)`
 
 The output of a content update build is basically the Remote Deploy column in the artifact table above.
@@ -199,7 +199,7 @@ Here are some terms that caused me a lot of confusion and what they mean.
 
 **Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you're reasoning about all of the configuration, just replace the word "Local" with "files that are prepackaged with your player" and you'll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don't get stuck thinking that you're making a "Local only" or "Remote only" build. The one exception to this is making "content update" builds, where every file is intended to be deployed Remotely.
 
-**Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the addressables_content_state.bin** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted.
+**Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the `addressables_content_state.bin`** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted.
 
 **Build Script**: This is confusing because as a first time user you don't necessarily care about build scripting. This isn't custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
 
@@ -259,7 +259,7 @@ By default, when you create an AssetGroup, it will have the ```BundledAssetGroup
 * **Advanced Options > Compression**: See the guidance at https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/AddressableAssetsGettingStarted.html#building-for-multiple-platforms
 * **Bundle Mode**: This is where you'd start to get into download optimization. This basically determines whether your group gets converted into multiple asset bundles or a single asset bundle. This is effectively your toggle for controlling size vs number of downloaded files.
 * **Bundle Naming**: Addressables generates REALLY LONG file paths in its artifacts, so you might have to mess with this if the runtime starts failing to load files. Or you can shorten your file paths in your project. This is a pretty well known sharp edge of the system.
-* **Content Update Restriction**: This determines whether the group gets written into your addressables_content_state.bin as content that can be updated after you've already shipped your player builds.
+* **Content Update Restriction**: This determines whether the group gets written into your `addressables_content_state.bin` as content that can be updated after you've already shipped your player builds.
 
 ## Other files
 
@@ -291,14 +291,32 @@ That's it! That's the only reason Addressables uses this folder! It's kind of an
 
 ### **Q: What version control ignore rules do I need?**
 
-A: Here's a Git example, but you should be able to adapt this to any VCS:
+A: If you don't want to think about this much, then you can use my frequently-updated Unity `.gitignore` [here](https://github.com/mikerochip/repo-boilerplate/blob/main/Unity/ProjectUnity/.gitignore).
 
-* `/Assets/StreamingAssets/aa/`
-* `/Assets/StreamingAssets/aa.meta`
-* `/Assets/AddressableAssetsData/**/addressables_content_state.bin*`
-* `/ServerData`
+This is a reprint of the Addressables section that you could adapt to any VCS:
 
-I highly recommend putting placeholder files in `Assets/StreamingAssets` and in each platform subfolder of `AddressableAssetsData` (e.g. `AddressableAssetsData/OSX`, `AddressableAssetsData/iOS`, etc) otherwise your teammates will get complaints about meta files for empty folders when they startup your Unity project.
+```
+/ServerData
+/Assets/StreamingAssets/aa*
+/Assets/AddressableAssetsData/link.xml*
+/Assets/AddressableAssetsData/Unknown*
+/Assets/AddressableAssetsData/Windows*
+/Assets/AddressableAssetsData/OSX*
+/Assets/AddressableAssetsData/Linux*
+/Assets/AddressableAssetsData/PS4*
+/Assets/AddressableAssetsData/Switch*
+/Assets/AddressableAssetsData/XboxOne*
+/Assets/AddressableAssetsData/WebGL*
+/Assets/AddressableAssetsData/iOS*
+/Assets/AddressableAssetsData/Android*
+/Assets/AddressableAssetsData/WindowsUniversal*
+```
+
+There are a lot of platform-specific folders here, just because the Default Build Script copies the `addressables_content_state.bin` to a platform-specific subfolders of `/Assets/AddressableAssetsData`.
+
+You can change that by changing the AddressableAssetSettings's Content State Build Path field to a VCS-ignored path (e.g. somewhere in the Library folder, `Local.BuildPath`, `[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]`, etc.). Do that and you can delete the platform folders from your ignore rules.
+
+You can also delete `/ServerData` from that list if you change your default `Remote.BuildPath` profile variable.
 
 ### **Q: How do I test in the editor?**
 
