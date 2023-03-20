@@ -316,9 +316,7 @@ This is a reprint of the Addressables section that you could adapt to any VCS:
 /Assets/AddressableAssetsData/WindowsUniversal*
 ```
 
-There are a lot of platform-specific folders here, just because the Default Build Script copies the `addressables_content_state.bin` to a platform-specific subfolders of `/Assets/AddressableAssetsData`.
-
-You can change that by changing the AddressableAssetSettings's Content State Build Path field to a VCS-ignored path (e.g. somewhere in the Library folder, `Local.BuildPath`, `[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]`, etc.). Do that and you can delete the platform folders from your ignore rules.
+There are a lot of platform-specific folders here, just because the Default Build Script copies the `addressables_content_state.bin` to platform-specific subfolders of `/Assets/AddressableAssetsData`. You can change that by changing the AddressableAssetSettings's Content State Build Path field to a VCS-ignored path (e.g. somewhere in the Library folder, `Local.BuildPath`, `[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]`, etc.). Do that and you can delete the platform folders from your ignore rules.
 
 You can also delete `/ServerData` from that list if you change your default `Remote.BuildPath` profile variable.
 
