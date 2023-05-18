@@ -1,7 +1,7 @@
 # Mike's Addressables Training Manual
 
 #### Last Updated
-Mar 20, 2023\
+May 18, 2023\
 Using Addressables Version 1.20.5
 
 #### First Published
@@ -24,7 +24,9 @@ So! You start looking into Addressables, and...aren't sure what to do next. Mayb
 
 ## What is Addressables?
 
-The Addressables system is a Unity package that allows you to load assets at runtime by address rather than by using Resources, Streaming Assets, or rolling a custom solution on top of Asset Bundles.
+The Addressables system is a Unity package that allows you to load assets at runtime by address rather than by using Resources, Streaming Assets, or rolling a custom solution on top of Asset Bundles. Addressables is essentially an Asset Bundle build and load solution (but NOT deploy - lots more on that topic in this manual).
+
+For those unfamiliar, Asset Bundles are Unity's mechanism for packaging assets in a way that they can be loaded at runtime, dynamically and from arbitrary locations.
 
 Loading by address unlocks your ability to rearrange the assets in your project and deploy your assets locally or to a server without having to change the code that loads the assets.
 
@@ -46,9 +48,11 @@ The Addressables system's main value is that it decouples your code and assets: 
 
 # Use Cases
 
-The official docs [have a page about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets), but it focuses on optimizing asset load times.
+The official docs [have a section about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets), but it's fairly low level.
 
-Here are some business and productivity use cases.
+Usually when developers start thinking about switching to Addressables, they want a higher level set of goals that they've heard this system can help them achieve.
+
+So, here are some business and productivity use cases:
 
 ## 1. Scale up your project's workflow
 
@@ -56,11 +60,11 @@ You can use Addressables purely for improving workflow on your project. Because 
 
 ## 2. Deploy OTA content to reduce app store build size
 
-You can use Addressables to reduce the size of your builds by deploying assets to a server instead of shipping them with your builds. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits. This use case is possible because your assets get transformed into asset bundles, which are basically a type of asset that Unity can load at runtime (normally, assets in Unity must be baked into your builds).
+You can use Addressables to reduce the size of your builds by deploying assets to a server instead of shipping them with your builds. The main use case for this is reducing app sizes for mobile app stores so you can (hopefully) stay underneath app store cellular download limits.
 
 ## 3. Deploy updated content OTA
 
-Addressables has a workflow specifically intended for deploying content updates to live apps. It's important to note that this is a distinct workflow from the previous use case of reducing build sizes. You can't just use the workflow from the previous use case and overwrite the files you wrote last time to achieve a content update.
+Addressables has a workflow specifically intended for deploying content updates to live apps. It's important to note that this is a distinct workflow from the previous use case of reducing build sizes. You can't just use the workflow from the previous use case and overwrite the files you wrote last time to achieve a content update. You have to enable usage of what's called a remote catalog. A catalog is a list of asset bundles and where they are located. A remote catalog is a catalog your game downloads from a server (usually on startup) to get the latest list of asset bundles to download.
 
 # Content Builds and Build Artifacts
 
@@ -159,7 +163,7 @@ Here's the more detailed breakdown:
 
 **Remote System Files**: These are what enable the Addressables runtime to load OTA content. These are pretty much just catalog files, and catalog files are what tell the Addressables runtime where remote artifacts are located. When you initialize Addressables at runtime, you need to tell it to update its content catalog with a remote content catalog (which is deployed just like any other remote artifacts), and by doing that, you enable the Addressables runtime to find where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
 
-**Asset Bundles**: For the most part, Unity can only load assets at arbitrary paths if they are packaged into Asset Bundles. That's why Addressables outputs these.
+**Asset Bundles**: Unity can only load runtime assets at arbitrary paths if they are packaged into Asset Bundles. That's why Addressables outputs these. (`StreamingAssets` is a noteable exception but beyond the scope of this section.)
 
 Things to remember:
 
