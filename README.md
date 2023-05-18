@@ -177,10 +177,13 @@ Things to remember:
 
 Things to remember:
 
-* An `addressables_content_state.bin` is a requirement for making content update builds. They're produced by content builds. This file is not intended to be deployed to users.
-* `addressables_content_state.bin` is placed in `Assets/AddressableAssetsData/<PlatformName>/`
+* An `addressables_content_state.bin` is a requirement for making content update builds. They're produced by content builds.
+* `addressables_content_state.bin` is just a manifest file for the build system. It is intended to be ignored in source control. It is also not intended to be deployed to users.
+* By default, `addressables_content_state.bin` is placed in `Assets/AddressableAssetsData/<PlatformName>/`, which makes source control ignore rules challenging. You can change that in your AddressableAssetSettings (e.g. to a location in your Library folder) if you enable building a remote catalog.
 * In order for content to be able to be updated, you need to flag its AssetGroup as Can Change Post Release.
 * **When you make a content update build, first check the box that says Build Remote Catalog.** This setting can be found on the AddressableAssetSettings inspector.
+* A remote catalog is what will enable your game to know where to get the latest asset bundles.
+* You are responsible for making sure the latest bundles in the remote catalog and the remote catalog itself are uploaded when you want to deploy new content.
 
 There are 2 ways to make a content update build:
 
