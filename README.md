@@ -1,7 +1,7 @@
 # Mike's Addressables Training Manual
 
 #### Last Updated
-May 18, 2023\
+Sep 05, 2023\
 Using Addressables Version 1.20.5
 
 #### First Published
@@ -48,11 +48,9 @@ The Addressables system's main value is that it decouples your code and assets: 
 
 # Use Cases
 
-The official docs [have a section about this](https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/index.html#why-use-addressable-assets), but it's fairly low level.
+There is a [how-to page](https://unity.com/how-to/simplify-your-content-management-addressables) on Addressables that briefly goes over some use cases for Addressables, but it is very brief and it tends to focus on technical reasons.
 
-Usually when developers start thinking about switching to Addressables, they want a higher level set of goals that they've heard this system can help them achieve.
-
-So, here are some business and productivity use cases:
+This is my take on when to use Addressables, from the trenches of using it for several years:
 
 ## 1. Scale up your project's workflow
 
@@ -65,6 +63,8 @@ You can use Addressables to reduce the size of your builds by deploying assets t
 ## 3. Deploy updated content OTA
 
 Addressables has a workflow specifically intended for deploying content updates to live apps. It's important to note that this is a distinct workflow from the previous use case of reducing build sizes. You can't just use the workflow from the previous use case and overwrite the files you wrote last time to achieve a content update. You have to enable usage of what's called a remote catalog. A catalog is a list of asset bundles and where they are located. A remote catalog is a catalog your game downloads from a server (usually on startup) to get the latest list of asset bundles to download.
+
+⚠️ If you don't actually have these use cases, or the cost to using Addressables outweighs the returns, then don't use it. ⚠️
 
 # Content Builds and Build Artifacts
 
