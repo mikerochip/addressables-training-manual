@@ -1,7 +1,7 @@
 # Mike's Addressables Training Manual
 
 #### Last Updated
-Sep 05, 2023\
+Apr 07, 2025\
 Using Addressables Version 1.20.5
 
 #### First Published
@@ -12,45 +12,32 @@ Using Addressables Version 1.16.15
 
 * [Welcome](#welcome)
 * [Use Cases](#use-cases)
+* [Building Blocks](#building-blocks)
 * [Content Builds and Build Artifacts](#content-builds-and-build-artifacts)
 * [Content Update Builds](#content-update-builds)
-* [Confusing Terminology](#confusing-terminology)
+* [Confusing Terms](#confusing-terms)
 * [Settings](#settings)
 * [Questions and Answers](#questions-and-answers)
 
 # Welcome
 
-So! You start looking into Addressables, and...aren't sure what to do next. Maybe you installed the package and thought...what now? Maybe you tried to read the official docs and became confused. Maybe you started asking yourself whether it's you or the system. This happened to me, and I made this manual to help people understand the system and encourage them to adopt it instead of giving up on it.
+If you were like me when I started looking into Addressables, you might have assumed that installing the package and fiddling with its settings would somehow result in your Unity project having a downloadable asset system. Well, unfortunately, it doesn't quite take you all the way there. It is also quite a complicated system due to the sheer number of concepts and configuration knobs that it exposes.
 
-## What is Addressables?
+I've seen many programmers get stuck, then frustrated, then give up, because they run into cognitive overload and just end up rolling their own. The good news is that Addressables can take you most of the way to a downloadable asset system, but there are information gaps between its promise and its reality, so I made this manual to fill those gaps.
 
-The Addressables system is a Unity package that allows you to load assets at runtime by address rather than by using Resources, Streaming Assets, or rolling a custom solution on top of Asset Bundles. Addressables is essentially an Asset Bundle build and load solution (but NOT deploy - lots more on that topic in this manual).
+## What does Addressables do?
 
-For those unfamiliar, Asset Bundles are Unity's mechanism for packaging assets in a way that they can be loaded at runtime, dynamically and from arbitrary locations.
+The Addressables system's main purpose is to enable you to decouple how your code loads assets from how it builds and deploys them: you specify addresses for assets, addresses can be configured to be located at local or remote paths, then your code loads whatever is at an address.
 
-Loading by address unlocks your ability to rearrange the assets in your project and deploy your assets locally or to a server without having to change the code that loads the assets.
+## What does Addressables NOT do?
 
-**Addressables does not provide a server asset hosting solution out of the box.** You are responsible for finding a hosting solution and managing that solution. Unity does provide its own hosting service called Cloud Content Delivery (CCD) as an option for you, but it's not free, not enabled by default, and server hosting solutions are somewhat out of scope for this manual anyway. I talk about this briefly in the Q&A section at the bottom.
+Addressables does NOT provide a server hosting solution for assets. It is only able to provide configuration that maps an asset to a hosting path. That's it. This gap is probably the most confusing part about Addressables, and is the main topic of this manual.
 
-## What is This Manual?
-
-This manual mostly exists to fill a gap in the official documentation: the Addressables build system and build artifacts, and what to do with the artifacts.
-
-My ultimate goal is to encourage other devs to use Addressables by helping folks learn how its more complicated, less-well-explained parts work. I won't go into detail on topics that the official docs do a great job of covering or parts that are easier to learn.
-
-Devs typically start looking into Addressables to add downloadable content support to their games. Eventually, they come to the disappointing realization that it doesn't upload anything to anywhere. This disappointment leads many devs to flip the table over and determine that they will simply write their own solution. This is a foolish conclusion to come to because it's easy to underestimate the workload involved, and most games really do not have unique requirements for a downloadable asset system. I know this from experience because I wrote a downloadable asset system for Hearthstone long before Addressables existed. I'd like to avoid doing that again. I'd like to help others avoid doing that as well. It doesn't provide value for your project.
-
-## Why Bother with Addressables?
-
-Unity projects generally have a very tight coupling between code and assets, and a similar coupling exists in builds. This is a strength of Unity in the early-stage: you can move fast and there are less barriers between content creation and engineering. The downside is that this coupling (1) makes responsibilities between content creators and engineers confusing and (2) forces you to refactor large portions of your project to support downloadable content if you want to support that. This has led to a common misperception about Unity, which is that it's only good for small projects.
-
-The Addressables system's main value is that it decouples your code and assets: you specify addresses for assets, addresses can be configured and changed, and your code loads whatever is at an address. You can change the address of an asset without having to rewrite your code. This leads to a clearer separation of responsibilities between content creators and engineers. That leads to a more scalable workflow. It would have been great if Addressables were built into the engine so it didn't have a perception of being complicated, but here we are. That's why I wrote this manual!
+Unity provides a managed hosting service called Cloud Content Delivery (CCD) as an option for you, but it's not free, not enabled by default, and you can choose not to use it in favor of rolling a custom solution (for example, on top of AWS S3). I talk about this briefly in the Q&A section at the bottom.
 
 # Use Cases
 
-There is a [how-to page](https://unity.com/how-to/simplify-your-content-management-addressables) on Addressables that briefly goes over some use cases for Addressables, but it is very brief and it tends to focus on technical reasons.
-
-This is my take on when to use Addressables, from the trenches of using it for several years:
+Unity has an official [how-to page](https://unity.com/how-to/simplify-your-content-management-addressables) on Addressables that briefly goes over some use cases, but here is my take on when and why to use it, from the trenches of using it for several years.
 
 ## 1. Scale up your project's workflow
 
@@ -66,9 +53,35 @@ Addressables has a workflow specifically intended for deploying content updates 
 
 ⚠️ If you don't actually have these use cases, or the cost to using Addressables outweighs the returns, then don't use it. ⚠️
 
+# Building Blocks
+
+These are the foundational building blocks of the Addressables system.
+
+## Addressables
+
+At its core, the Addressables system is a high-level Asset Bundle manager that provides you with editor tools to configure your project to build and load Asset Bundles from either the assets packaged into a build OR from a remote location.
+
+## Asset Bundles
+
+An Asset Bundle is a file that wraps one or more project assets, and is the only method for Unity projects to dynamically load assets at runtime **without requiring you to bake them into a build** (i.e. baking AssetBundles into a build is optional)
+
+For context, these are alternatives for runtime asset loading that do require you to bake assets into the build:
+
+* Loading from Resources
+* Loading from Streaming Assets
+
+## AssetGroups
+
+An AssetGroup is a ScriptableObject that holds Addressables configuration for:
+
+* The addresses of a group of assets (editable via the AssetGroups editor window or an asset's Address in its inspector)
+* How to generate bundles for a group of assets (via the AssetGroup's own inspector)
+
 # Content Builds and Build Artifacts
 
-In order for the Addressables runtime to work, you have to make a content build. For me, the hardest thing to learn about Addressables were the content build artifacts. What gets generated, where they go, what you're expected to do with them, etc. Additionally, the documentation and the artifacts themselves don't make it obvious what you're supposed to do after a content build.
+In order for Addressables to load assets at runtime, you have to first make a content build.
+
+For me, the hardest thing to learn about Addressables were the content build artifacts. What gets generated, where they go, what you're expected to do with them, etc. Additionally, the documentation and the artifacts themselves don't make it obvious what you're supposed to do after a content build.
 
 First, a note about the term "artifact." This is a build engineering term, which is basically a fancy term for "output file." Although the official docs don't use it, I use it because it's an industry standard term. It's also nice for its flexibility - you don't have to list out every file type that a build can produce if you just say "artifacts" since some build systems can output dozens to hundreds of different file types.
 
@@ -163,12 +176,11 @@ Here's the more detailed breakdown:
 
 **Remote System Files**: These are what enable the Addressables runtime to load OTA content. These are pretty much just catalog files, and catalog files are what tell the Addressables runtime where remote artifacts are located. When you initialize Addressables at runtime, you need to tell it to update its content catalog with a remote content catalog (which is deployed just like any other remote artifacts), and by doing that, you enable the Addressables runtime to find where the remote bundles are. You can generate a remote content catalog by checking a box in the AddressableAssetSettings inspector.
 
-**Asset Bundles**: Unity can only load runtime assets at arbitrary paths if they are packaged into Asset Bundles. That's why Addressables outputs these. (`StreamingAssets` is a noteable exception but beyond the scope of this section.)
+**Asset Bundles**: For AssetGroups configured to generate bundles with Remote Load Paths, you'll need to upload all the bundles at the Remote Build Path (which is in your active profile) after the content build. For local bundles, you don't really need to do anything more after the content build.
 
 Things to remember:
 
-* You organize your project assets into AssetGroups
-* AssetGroups are ScriptableObjects saved to your Assets folder
+* You organize your assets into AssetGroups, which contains the addresses and labels of your assets
 * AssetGroups live in ```Assets/AddressableAssetsData/AssetGroups/```. The Addressables Groups UI gets its data from this folder.
 * AssetGroups' ```Build and Load Paths``` setting is what determines whether the group is Local or Remote
 * AssetGroup settings are also what determine whether a group becomes one or many Asset Bundles
@@ -202,21 +214,21 @@ You'll want to look at the official docs for the full picture on this topic. Thi
 
 Official docs: https://docs.unity3d.com/Packages/com.unity.addressables@1.16/manual/ContentUpdateWorkflow.html#how-it-works
 
-# Confusing Terminology
+# Confusing Terms
 
 [Naming is one of the 2 hardest problems in computer science.](https://skeptics.stackexchange.com/questions/19836/has-phil-karlton-ever-said-there-are-only-two-hard-things-in-computer-science)
 
 Here are some terms that caused me a lot of confusion and what they mean.
 
-**Local**: Whenever you see this term in Addressables it basically means prepackaged files. Another way to think of it is "deployed with the player build." Try not to think of it in terms of client-server when you're reasoning about all of the configuration, just replace the word "Local" with "files that are prepackaged with your player" and you'll have a much easier time. It also helps to realize that content builds produce a blend of Local and Remote artifacts, so don't get stuck thinking that you're making a "Local only" or "Remote only" build. The one exception to this is making "content update" builds, where every file is intended to be deployed Remotely.
+**Local**: Whenever you see this term in Addressables, think of it as "files deployed with the player build" just like Resources, StreamingAssets, etc. It also helps to realize that content builds can produce a blend of Local and Remote artifacts because where an asset needs to be loaded from is completely configured from the AssetGroups, so don't get stuck thinking that you're making a "Local only" or "Remote only" build or anything like that. The one exception to this is making "content update" builds, where every file is intended to be Remote.
 
-**Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the `addressables_content_state.bin`** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted.
+**Build Cache**: This is basically your `Library/com.unity.addressables/aa` folder. For some reason the Build Cache **does not include the `addressables_content_state.bin`** so if you Clean your Build Cache, not everything in `Library/com.unity.addressables` will be deleted. You can change where your `addressables_content_state.bin` gets generated via a setting in `AddressableAssetSettings` so that it does get deleted when you Clean your Build Cache.
 
-**Build Script**: This is confusing because as a first time user you don't necessarily care about build scripting. This isn't custom build scripting though! This is fundamental to Addressables. Build Scripts are what Addressables uses to make content builds, content builds produce the artifacts that the Addressables runtime needs. Content builds are composed of 2 things: Asset Bundles which are your assets transformed from AssetGroups into a runtime-friendly format, and System Files, such as the content catalog, which contain config and Asset Bundle paths.
+**Build Script**: This is confusing because as a first time user you don't necessarily care about build scripting and probably want Addressables to take care of everything for you. This isn't exactly what you're thinking though. Build Script is just the term Addressables uses to determine what code to execute when making content builds, and what to execute is based on your Play Mode Script setting (more on that in next bullet). Generally speaking, any build script should generate asset bundles (with the exception of loading directly from the in-editor `AssetDatabase`), but you get multiple build script options so that you can customize the output (e.g. adding artificial network delays on a per-AssetGroup basis).
 
 **Play Mode Script**: Probably the most confusing term, made worse by the fact that your Play Mode Script options are the same as your Build Scripts. This is an **editor-only concept** and the term "Play Mode" refers to Unity's Play Mode in the editor. Setting a Play Mode Script basically tells the Addressables runtime to simulate one of the Build Scripts while your editor is in play mode. One of the BuildScripts is called "Simulate Groups" which makes things really confusing! That one basically lets you simulate network delays as if you were in a deployed build even though you're still in the editor.
 
-**AssetGroupSchemas**: These are fields on your AssetGroups (remember, AssetGroups are just ScriptableObjects in your Asset tree) and are the primary mechanism that Build Scripts use to determine how to transform your AssetGroups into Asset Bundles when a content build is made. Part of what the build process does is loop through each AssetGroup and get its GroupSchemas to help determine how the group should be transformed into bundles.
+**AssetGroupSchemas**: These are fields on your AssetGroups and are the primary mechanism that Build Scripts use to determine how to transform your AssetGroups into Asset Bundles when a content build is made. Part of what the build process does is loop through each AssetGroup and get its GroupSchemas to help determine how the group should be transformed into bundles.
 
 There are 3 pre-provided GroupSchemas out of the box, two of which (```BundledAssetGroupSchema``` and ```ContentUpdateGroupSchema```) are added to AssetGroups by default and will get you pretty much exactly what you need. There's plenty to learn and configure with ```BundledAssetGroupSchema``` so, even though the GroupSchemas system is intended to be user-extensible (via subclassing), practically speaking, you probably won't need to make your own since the pre-provided ones cover a lot of use cases.
 
@@ -229,11 +241,11 @@ Profiles define a set of variables, and these variables are referenced by AssetG
 *For each AssetGroup Foo:*
 
 1. BundlePath = Foo.LoadPath (**the LoadPath references a Profile var**) + Foo.Name + a hash value
-1. Convert the AssetGroup into a bundle (or bundles!) depending on the settings of the AssetGroups' AssetGroupSchemas
-1. Write the bundles to disk using BundlePath
-1. Write the BundlePath into the content catalog
+2. Convert the AssetGroup into a bundle (or bundles!) depending on the settings of the AssetGroups' AssetGroupSchemas
+3. Write the bundles to disk using BundlePath
+4. Write the BundlePath into the content catalog
 
-Honestly, I simplified this a bit. It's a bit more complex because AssetGroups don't reference profile variables directly. They reference AssetGroupSchemas, which reference profile variables.
+I simplified this a bit. It's a bit more complex because AssetGroups don't reference profile variables directly. They reference AssetGroupSchemas, which reference profile variables.
 
 # Settings
 
@@ -241,7 +253,7 @@ There are A LOT of settings in Addressables, so I'm going to call out the ones y
 
 ## AddressableAssetSettings
 
-This is a ScriptableObject that contains settings, *some* of which are version controlled. It's quite confusing that there's no clear way to tell which settings are version controlled and which are not.
+This is a ScriptableObject that contains global settings for Addressables. *Some* of the settings are version controlled by virtue of living on the ScriptableObject, but some of the settings in the inspector for this object are written to your Library folder. I do not know why that decision was made but the consequence is that changing the inspector for this object may or may not change your source control, which is super confusing.
 
 * **Profile in Use**: Changes AddressableAssetSettings. This is the profile that gets used when you make a content build either by calling Addressables.BuildPlayerContent() or clicking Build > New Build > Default Build Script in the Addressables Groups window.
   * **Warning: Because this setting changes the ScriptableObject and this object is intended to be source-controlled, you'll need to be very careful to change the setting back to its default value instead of committing it when you're done testing Addressables.**
@@ -274,9 +286,11 @@ By default, when you create an AssetGroup, it will have the ```BundledAssetGroup
 
 ## Other files
 
-For the most part, you can ignore everything else.
+For the most part, you can ignore everything else, for instance:
 
-I'm not sure what AssetGroupTemplates are. DefaultObject seems to be some kind of hack that exists for some of the built-in Addressables ScriptableObjects to link back to the AddressableAssetSettings. There might be more I'm forgetting or not aware of...
+* I'm not sure what AssetGroupTemplates are
+* Addressables seems to support multiple `AddressableAssetSettings` objects, but practically speaking, you'll only ever need one of these in your project, so it's pretty confusing that multiple are supported
+* Per the previous point, there is an `AddressableAssetSettingsDefaultObject` which seems to be a workaround that lets you treat an AddressableAssetSettings object as a singleton, default object
 
 # Questions and Answers
 
@@ -298,13 +312,13 @@ A: This is a bit weird, and honestly a bit of a hack if you ask me. `StreamingAs
 
 Why is this relevant to Addressables? Because of a side effect. Unity copies any files in this folder **verbatim** into a similar location in player builds, meaning that you can use the `Application.streamingAssetsPath` property as a consistent base file path in both the editor (e.g. when Addressables writes paths into its catalog) and at runtime (e.g. when the Addressables runtime needs to load Local files). If you see `{UnityEngine.AddressableAssets.Addressables.RuntimePath}` in Profile variables, that's basically an alias for `Application.streamingAssetsPath`.
 
-That's it! That's the only reason Addressables uses this folder! It's kind of annoying that the Addressables BuildScripts don't delete the `StreamingAssets` folder if they are the only thing using it, but oh well.
+That's it! That's the only reason Addressables uses this folder! It's kind of annoying that the Addressables BuildScripts don't delete the `StreamingAssets` folder if they are the only thing using it and you clean your build cache, so just watch out for that in your source control.
 
-### **Q: What version control ignore rules do I need?**
+### **Q: What source control ignore rules do I need?**
 
 A: If you don't want to think about this much, then you can use my frequently-updated Unity `.gitignore` [here](https://github.com/mikerochip/repo-boilerplate/blob/main/Unity/ProjectUnity/.gitignore).
 
-This is a reprint of the Addressables section that you could adapt to any VCS:
+This is a reprint of the Addressables section that you could adapt to any SCM:
 
 ```
 /ServerData
@@ -406,3 +420,18 @@ If you use the CCD CLI, then any files that are in the Remote Build Path for you
 ### **Q: When/how should we upload Addressables artifacts to CCD from a UCB build?**
 
 A: See the Enable Cloud Content Delivery service header in https://docs.unity3d.com/Manual/UnityCloudBuildAddressables.html
+
+### **Q: I programmatically altered an Address or AssetGroup and now errors and exceptions are coming from Addressables code. How do I fix this?**
+
+A: Unfortunately, when you change things that affect Addressables programmatically, like a setting, an asset's address, or AssetGroup membership, you need to manually tell the Addressables system that something changed so it can rebuild configuration and properly update custom editors.
+
+There are several ways to do this, but this method is the simplest catch-all:
+
+```
+AddressableAssetSettingsDefaultObject.Settings.SetDirty(
+    AddressableAssetSettings.ModificationEvent.BatchModification,
+    eventData: null,
+    postEvent: true,
+    settingsModified: false); // set this to true if you changed a setting on AddressableAssetSettings
+
+```
